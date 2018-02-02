@@ -153,16 +153,17 @@
             return count > 1 ? list[UnityEngine.Random.Range(0, count)] : list[0];
         }
 
-        /// <summary>
-        /// Sorts this list using the supplied comparison. This is done by casting to <see cref="List{T}"/>.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="list">The list.</param>
-        /// <param name="comparison">The comparison.</param>
-        public static void Sort<T>(this IList<T> list, Comparison<T> comparison)
-        {
-            ((List<T>)list).Sort(comparison);
-        }
+        // this is the bad C# sort. please never use this
+        ///// <summary>
+        ///// Sorts this list using the supplied comparison. This is done by casting to <see cref="List{T}"/>.
+        ///// </summary>
+        ///// <typeparam name="T"></typeparam>
+        ///// <param name="list">The list.</param>
+        ///// <param name="comparison">The comparison.</param>
+        //public static void Sort<T>(this IList<T> list, Comparison<T> comparison)
+        //{
+        //    ((List<T>)list).Sort(comparison);
+        //}
 
         /// <summary>
         /// Adds the supplied enumerable to this list. This is done by casting to <see cref="List{T}"/>.
