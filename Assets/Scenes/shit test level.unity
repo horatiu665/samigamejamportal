@@ -290,6 +290,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scenes:
   - path: Assets/Scenes/shit test level.unity
+  - path: Assets/Scenes/Templates/Client Only.unity
 --- !u!4 &1458681733
 Transform:
   m_ObjectHideFlags: 0

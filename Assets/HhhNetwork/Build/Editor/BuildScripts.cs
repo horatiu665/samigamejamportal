@@ -236,7 +236,12 @@ namespace HhhNetwork.Build.Editor
 
         private static string GetPath(string serverOrClient, string buildFolder, BuildTarget buildTarget)
         {
-            return Path.Combine(Path.Combine(buildFolder, serverOrClient), Path.Combine(buildTarget.ToString(), string.Concat(serverOrClient, ".", GetExtension(buildTarget))));
+            // format:
+            // buildFolder/platform/clientOrServer/build.exe
+            var platform = buildTarget.ToString();
+            var fileWithExtension = string.Concat(serverOrClient, ".", GetExtension(buildTarget));
+            return Path.Combine(buildFolder, Path.Combine(platform, Path.Combine(serverOrClient, fileWithExtension)));
+            
         }
 
         private static string GetExtension(BuildTarget buildTarget)

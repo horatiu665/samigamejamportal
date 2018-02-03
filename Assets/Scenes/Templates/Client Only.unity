@@ -154,7 +154,7 @@ Prefab:
     - target: {fileID: 114000011846751384, guid: 172a97331204c9942952bf38269f32dc,
         type: 2}
       propertyPath: _autoConnectOnEnable
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 172a97331204c9942952bf38269f32dc, type: 2}
