@@ -2,14 +2,11 @@ namespace HhhNetwork
 {
     using UnityEngine;
 
-    /// <summary>
-    /// Base class for all networked VR players.
-    /// </summary>
-    public abstract class NetPlayerBase : INetPlayer
+    public sealed class NetPlayerBase : MonoBehaviour, INetPlayer
     {
         [Header("Network")]
         [SerializeField, ReadOnly]
-        protected short _netId;
+        private short _netId;
 
         /// <summary>
         /// Gets the net identifier - used for uniquely identifying players on the network.
@@ -23,8 +20,8 @@ namespace HhhNetwork
         }
 
         [SerializeField, ReadOnly]
-        protected bool _isLocal;
-        
+        private bool _isLocal;
+
         /// <summary>
         /// Gets a value indicating whether this instance is local on the network.
         /// </summary>
@@ -36,15 +33,21 @@ namespace HhhNetwork
             get { return _isLocal; }
         }
 
+        [SerializeField]
+        private bool _isPlayer;
+
         /// <summary>
         /// Gets a value indicating whether this instance is an actual player - to whom we need to send DataMessages, i.e. NOT an AI or bot.
         /// </summary>
         /// <value>
         ///   <c>true</c> if this instance is player; otherwise, <c>false</c>.
         /// </value>
-        public virtual bool isPlayer
+        public bool isPlayer
         {
-            get { return true; }
+            get
+            {
+                return _isPlayer;
+            }
         }
 
         /// <summary>
@@ -69,7 +72,7 @@ namespace HhhNetwork
         ///// </summary>
         ///// <param name="data">The VR body data.</param>
         //public abstract void HandleVRBodyUpdate(VRBodyUpdateData data);
-        
+
         //public abstract void HandleOriginShift(Vector3 originShiftDelta);
 
         /// <summary>

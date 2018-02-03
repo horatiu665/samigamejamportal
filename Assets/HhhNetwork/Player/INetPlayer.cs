@@ -8,6 +8,11 @@ namespace HhhNetwork
     public interface INetPlayer
     {
         /// <summary>
+        /// Gets the root gameObject of this player (monobeh takes care)
+        /// </summary>
+        GameObject gameObject { get; }
+
+        /// <summary>
         /// Gets the net identifier - used for uniquely identifying entities on the network.
         /// </summary>
         /// <value>

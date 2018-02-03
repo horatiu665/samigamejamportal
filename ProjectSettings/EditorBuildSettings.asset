@@ -4,4 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/HhhNetwork/Scenes/client.unity
+    guid: a65901ae6e49c8043a45167fc5134391
+  - enabled: 0
+    path: Assets/HhhNetwork/Scenes/server.unity
+    guid: 9aabfcac02d0f8541b6963442507435b
