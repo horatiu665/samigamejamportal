@@ -110,10 +110,10 @@ namespace HhhNetwork.Client
             Debug.Log(this.ToString() + " HandlePlayerStart created local player by id == " + localPlayer.netId.ToString() + " and name == " + localPlayer.gameObject.name);
             MessagePool.Return(msg);
 
-            //if (ConnectUIHandler.instance != null)
-            //{
-            //    ConnectUIHandler.instance.Disable();
-            //}
+            if (ConnectUIHandler.instance != null)
+            {
+                ConnectUIHandler.instance.Disable();
+            }
         }
 
         private void HandlePlayerRemoteConnect(byte[] buffer)
