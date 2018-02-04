@@ -6,9 +6,8 @@ namespace HhhNetwork.Server
     /// <summary>
     /// Receives network events and handles them for a server.
     /// </summary>
-    /// <seealso cref="UnityEngine.MonoBehaviour" />
-    /// <seealso cref="VRNetwork.INetReceiver{VRNetwork.ServerNetReceiver}" />
-    /// <seealso cref="VRNetwork.ServerNetReceiver"/>
+    /// <seealso cref="ServerNetSender"/>
+    /// <seealso cref="Client.ClientNetReceiverBase{T}"/>
     [RequireComponent(typeof(ServerNetSender))]
     public abstract class ServerNetReceiverBase<T> : NetReceiverBase<T, ServerNetSender> where T : ServerNetReceiverBase<T>
     {

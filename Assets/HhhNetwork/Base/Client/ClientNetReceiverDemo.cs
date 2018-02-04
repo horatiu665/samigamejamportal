@@ -4,11 +4,15 @@ namespace HhhNetwork.Client
     using UnityEngine;
     using UnityEngine.Networking;
 
+    /// <summary>
+    /// Client net receiver. Receives all messages from server, handles them.
+    /// <seealso cref="Server.ServerNetReceiverDemo"/>
+    /// </summary>
     public sealed class ClientNetReceiverDemo : ClientNetReceiverBase<ClientNetReceiverDemo>
     {
         private string GetPlayerName()
         {
-            return "Svejk";
+            return System.Environment.MachineName;
             //return SteamManager.Initialized ? SteamFriends.GetPersonaName() : System.Environment.MachineName;
         }
 
@@ -71,12 +75,13 @@ namespace HhhNetwork.Client
             //}
 
             // FEEDBACK FOR DISCOMNECT
-            // try to reconnect here...? in case unity does not try
+            // try to reconnect here...?
+
         }
         
         private void HandlePlayerLocalStart(byte[] buffer)
         {
-            var msg = MessagePool.Get<PlayerLocalStartMessageDefault>(buffer);
+            var msg = MessagePool.Get<PlayerLocalStartMessage>(buffer);
             var id = msg.netId;
             if (GetPlayer(id) != null)
             {
@@ -91,17 +96,19 @@ namespace HhhNetwork.Client
             // msg.position is serverpos. local player must know about serverOS before it can perform RemotePos
             //var pos = RemotePos(msg.position);
             var pos = msg.position;
-            //var color = msg.color;
+            var color = msg.color;
             var playerType = msg.playerType;
 
             // do not use a pool for the local player, since there will only ever be one of those
             var localPlayer = PlayerTypeManager.instance.InstantiatePlayer<INetPlayer>(playerType, GameType.Local, pos);
             localPlayer.SetIsLocal();
-            //localPlayer.color = color;
-            //localPlayer.name = GetPlayerName();
+            localPlayer.gameObject.name = GetPlayerName();
+            // how to set color on player?
+            //localPlayer.color = color; 
 
             AddPlayer(localPlayer, id);
 
+            // old code from old system = player rigidbodies were spawned and the rigidbody sync system was used to sync their wobble instead of the player messages. Required for impaling arrows in player's head
             //if (msg.headRbSyncId >= 0 && msg.bodyRbSyncId >= 0)
             //{
             //    localPlayer.SetupRigidbodies(msg.headRbSyncId, msg.bodyRbSyncId);
@@ -118,7 +125,7 @@ namespace HhhNetwork.Client
 
         private void HandlePlayerRemoteConnect(byte[] buffer)
         {
-            var msg = MessagePool.Get<PlayerRemoteConnectMessageDefault>(buffer);
+            var msg = MessagePool.Get<PlayerRemoteConnectMessage>(buffer);
             var id = msg.netId;
             if (GetPlayer(id) != null)
             {
@@ -134,15 +141,16 @@ namespace HhhNetwork.Client
             // remote connect = a new player connected. his origin shift is startingPos on his start.
             //NetOriginShiftManager.instance.SetPlayerOriginShift(id, os);
 
+            // if using origin shift, server position data must be calculated with server origin shift.
             //var pos = RemotePos(msg.position);
             var pos = msg.position;
-            //var color = msg.color;
-            //var name = msg.name;
+            var color = msg.color;
+            var name = msg.name;
 
             // use the pool for remotes, they are all the same
             var player = PlayerTypeManager.instance.InstantiatePlayer<INetPlayer>(msg.playerType, GameType.Remote, pos);
             //player.color = color;
-            //player.name = name;
+            player.gameObject.name = name;
 
             AddPlayer(player, id);
 

@@ -3,6 +3,10 @@ namespace HhhNetwork.Server
     using UnityEngine;
     using UnityEngine.Networking;
 
+    /// <summary>
+    /// ServerNetReceiver implementation - receives all net messages on server, and performs their tasks
+    /// <seealso cref="Client.ClientNetReceiverDemo"/> Client version, that mostly communicates with this one.
+    /// </summary>
     public class ServerNetReceiverDemo : ServerNetReceiverBase<ServerNetReceiverDemo>
     {
         protected override void Awake()
@@ -81,6 +85,7 @@ namespace HhhNetwork.Server
                 return;
             }
 
+            // get name from player message
             var name = nameMessage.name;
             if (string.IsNullOrEmpty(name))
             {
@@ -91,9 +96,10 @@ namespace HhhNetwork.Server
             var pos = Random.insideUnitSphere * 3; //_startPositions[netId % _startPositions.Length].transform.position;
 
             // a new client has connected - inform all other clients of the new player - do this before adding the new player to avoid sending the connect message to the new player
-            var connectMsg = MessagePool.Get<PlayerRemoteConnectMessageDefault>(netId);
+            var connectMsg = MessagePool.Get<PlayerRemoteConnectMessage>(netId);
             connectMsg.position = pos;
             //connectMsg.originShift = NetOriginShiftManager.instance.GetPlayerOriginShift(netId);
+            connectMsg.name = name;
             connectMsg.playerType = playerType;
             _network.SendToAll(connectMsg, QosType.Reliable);
 
@@ -111,6 +117,7 @@ namespace HhhNetwork.Server
                         connectMsg.position = p.gameObject.transform.position;
                         //connectMsg.originShift = NetOriginShiftManager.instance.GetPlayerOriginShift(netId);
                         //connectMsg.playerType = p.playerType;
+                        connectMsg.name = p.gameObject.name; // player name... how else to get it?
                         _network.Send(connectionId, connectMsg, QosType.Reliable);
                     }
                 }

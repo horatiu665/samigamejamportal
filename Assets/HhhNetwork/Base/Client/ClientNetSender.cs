@@ -4,8 +4,10 @@ namespace HhhNetwork.Client
     using UnityEngine.Networking;
 
     /// <summary>
-    /// Network receiver representing the Client.
+    /// Network sender representing the Client.
     /// </summary>
+    /// <seealso cref="ClientNetReceiverBase{T}"/>
+    /// <seealso cref="ClientNetReceiverDemo"/>
     public class ClientNetSender : NetSenderBase<ClientNetSender>
     {
         [Header("Connect Details")]

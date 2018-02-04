@@ -36,13 +36,9 @@ namespace HhhNetwork
         public const int QuaternionExact = 16;
 
         /// <summary>
-        /// Size in bytes of <see cref="UnityEngine.Color"/> using halves.
+        /// Size in bytes of <see cref="UnityEngine.Color"/> using halves. This is the default ReadColor() and WriteColor() in the Serializer, contains alpha.
         /// </summary>
         public const int ColorHalf = 8;
-
-        /// <summary>
-        /// Size in bytes of <see cref="UnityEngine.Color"/> using floats.
-        /// </summary>
-        public const int ColorExact = 16;
+        
     }
 }

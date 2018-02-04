@@ -5,10 +5,15 @@ namespace HhhNetwork
     using UnityEngine;
     using UnityEngine.Networking;
 
+    /// <summary>
+    /// Base for <seealso cref="Client.ClientNetSender"/> and <seealso cref="Server.ServerNetSender"/>
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     [RequireComponent(typeof(INetReceiver<>))]
     public abstract class NetSenderBase<T> : SingletonMonoBehaviour<T> where T : NetSenderBase<T>
     {
         [Header("Topology")]
+        #region Topology
         [SerializeField, Range(1, 100), Tooltip("The maximum amount of permitted simultaneous connections.")]
         protected int _maxConnections = 20;
 
@@ -20,8 +25,10 @@ namespace HhhNetwork
 
         [SerializeField]
         protected QosType[] _channels = new QosType[] { QosType.Unreliable, QosType.UnreliableSequenced, QosType.Reliable, QosType.ReliableSequenced };
+        #endregion
 
         [Header("Advanced Network")]
+        #region Advanced Network
         [SerializeField, Range(500, 8000), Tooltip("Timeout (in ms) which library will wait before it will send another connection request.")]
         private uint _connectionTimeout = 2000;
 
@@ -45,15 +52,19 @@ namespace HhhNetwork
 
         [SerializeField, Range(100, 2000), Tooltip("Timeout in ms between control protocol messages.")]
         private uint _pingTimeout = 1000;
+        #endregion
 
         [Header("Socket")]
         [SerializeField, ReadOnly]
         protected int _socketId = int.MinValue;
 
         protected IDictionary<QosType, int> _channelIds;
-        protected INetReceiver<T> _controller;
         protected byte[] _receiveBuffer;
 
+        /// <summary>
+        /// The associated NetReceiver. Server goes with Server, Client with Client.
+        /// </summary>
+        protected INetReceiver<T> _controller;
         public INetReceiver<T> controller
         {
             get { return _controller; }
@@ -159,30 +170,30 @@ namespace HhhNetwork
                 switch (networkEvent = NetworkTransport.ReceiveFromHost(_socketId, out connectionId, out channelId, _receiveBuffer, _receiveBufferSize, out dataSize, out error))
 #endif
                 {
-                    case NetworkEventType.ConnectEvent:
+                case NetworkEventType.ConnectEvent:
                     {
                         _controller.OnConnect(connectionId, (NetworkError)error);
                         break;
                     }
 
-                    case NetworkEventType.DisconnectEvent:
+                case NetworkEventType.DisconnectEvent:
                     {
                         _controller.OnDisconnect(connectionId, (NetworkError)error);
                         break;
                     }
 
-                    case NetworkEventType.DataEvent:
+                case NetworkEventType.DataEvent:
                     {
                         _controller.OnData(connectionId, _receiveBuffer, (NetworkError)error);
                         break;
                     }
 
-                    case NetworkEventType.Nothing:
+                case NetworkEventType.Nothing:
                     {
                         break;
                     }
 
-                    default:
+                default:
                     {
                         Debug.LogWarning(this.ToString() + " unhandled network event message type received: " + networkEvent.ToString());
                         break;
