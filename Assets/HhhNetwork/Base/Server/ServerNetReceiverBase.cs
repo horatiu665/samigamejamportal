@@ -8,6 +8,7 @@ namespace HhhNetwork.Server
     /// </summary>
     /// <seealso cref="ServerNetSender"/>
     /// <seealso cref="Client.ClientNetReceiverBase{T}"/>
+    /// <seealso cref="ServerNetReceiverDemo"/> // while it exists
     [RequireComponent(typeof(ServerNetSender))]
     public abstract class ServerNetReceiverBase<T> : NetReceiverBase<T, ServerNetSender> where T : ServerNetReceiverBase<T>
     {

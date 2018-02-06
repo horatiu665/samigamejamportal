@@ -1,9 +1,13 @@
 namespace HhhNetwork
 {
+    using System;
     using UnityEngine;
 
     public sealed class PlayerTypeManager : SingletonMonoBehaviour<PlayerTypeManager>
     {
+        [SerializeField]
+        private PlayerType curPlayerType = PlayerType.Normal;
+
         [SerializeField]
         private PlayerPrefab[] _playerSetup = new PlayerPrefab[1];
 
@@ -68,6 +72,16 @@ namespace HhhNetwork
             }
 
             return null;
+        }
+
+        public PlayerType GetCurrentPlayerType()
+        {
+            return curPlayerType;
+        }
+
+        public void SetPlayerType(PlayerType playerType)
+        {
+            this.curPlayerType = playerType;
         }
 
         public void Return(GameObject player)

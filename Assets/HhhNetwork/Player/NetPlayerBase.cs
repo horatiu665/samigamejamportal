@@ -2,7 +2,7 @@ namespace HhhNetwork
 {
     using UnityEngine;
 
-    public sealed class NetPlayerBase : MonoBehaviour, INetPlayer
+    public class NetPlayerBase : MonoBehaviour, INetPlayer
     {
         [Header("Network")]
         [SerializeField, ReadOnly]

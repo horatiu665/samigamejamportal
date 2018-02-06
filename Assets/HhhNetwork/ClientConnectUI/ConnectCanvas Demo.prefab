@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 114237515818495064}
   - component: {fileID: 114552075659254034}
   m_Layer: 5
-  m_Name: ConnectCanvas
+  m_Name: ConnectCanvas Demo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

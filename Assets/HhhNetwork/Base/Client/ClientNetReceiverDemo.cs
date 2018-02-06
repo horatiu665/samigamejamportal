@@ -1,6 +1,8 @@
 namespace HhhNetwork.Client
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using UnityEngine;
     using UnityEngine.Networking;
 
@@ -10,6 +12,21 @@ namespace HhhNetwork.Client
     /// </summary>
     public sealed class ClientNetReceiverDemo : ClientNetReceiverBase<ClientNetReceiverDemo>
     {
+        public List<NetMessageHandlerBase> messageHandlers = new List<NetMessageHandlerBase>();
+
+        public bool printEveryMessageReceived = false;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            UpdateMessageHandlers();
+        }
+
+        private void UpdateMessageHandlers()
+        {
+            messageHandlers = GetComponentsInChildren<NetMessageHandlerBase>().ToList();
+        }
+
         private string GetPlayerName()
         {
             return System.Environment.MachineName;
@@ -20,7 +37,6 @@ namespace HhhNetwork.Client
         {
             if (error != NetworkError.Ok)
             {
-                // an error occured !
                 Debug.LogError(this.ToString() + " OnConnect could not establish a connection to server, error == " + error.ToString());
                 return;
             }
@@ -32,7 +48,7 @@ namespace HhhNetwork.Client
             // Connection to server established, send a name message
             var nameMessage = MessagePool.Get<PlayerLocalConnectMessage>();
             nameMessage.name = GetPlayerName();
-            nameMessage.playerType = PlayerType.Normal; // TODO: get player type choice?
+            nameMessage.playerType = PlayerTypeManager.instance.GetCurrentPlayerType(); // PlayerType.Normal; // TODO: get player type choice?
             _network.Send(nameMessage, QosType.Reliable);
             MessagePool.Return(nameMessage);
 
@@ -50,14 +66,56 @@ namespace HhhNetwork.Client
             }
 
             var messageType = buffer.PeekType();
-            ////Debug.Log(this.ToString() + " OnData. Connection Id == " + connectionId.ToString() + ", error == " + error.ToString() + ", message type == " + messageType.ToString() + ", buffer size == " + buffer.Length.ToString() + ", contents=\n" + buffer.DebugLogContents());
+
+            bool handled = false;
+
+            if (printEveryMessageReceived)
+            {
+                Debug.Log(this.ToString() + " OnData. Connection Id == " + connectionId.ToString()
+                    + ", error == " + error.ToString() + ", message type == " + messageType.ToString() + ", buffer size == " + buffer.Length.ToString() /*+ ", contents=\n" + buffer.DebugLogContents()*/);
+            }
+
             switch (messageType)
             {
-            case NetMessageType.LocalStart: { HandlePlayerLocalStart(buffer); break; }
-            case NetMessageType.RemoteConnect: { HandlePlayerRemoteConnect(buffer); break; }
-            case NetMessageType.Disconnect: { HandlePlayerDisconnect(buffer); break; }
+            case NetMessageType.LocalStart:
+                {
+                    HandlePlayerLocalStart(buffer);
+                    handled = true;
+                    break;
+                }
+            case NetMessageType.RemoteConnect:
+                {
+                    HandlePlayerRemoteConnect(buffer);
+                    handled = true;
+                    break;
+                }
+            case NetMessageType.Disconnect:
+                {
+                    HandlePlayerDisconnect(buffer);
+                    handled = true;
+                    break;
+                }
             default:
-                { Debug.LogError(this.ToString() + " OnData unhandled MessageType == " + messageType.ToString()); break; }
+                {
+                    //Debug.LogError(this.ToString() + " OnData unhandled MessageType == " + messageType.ToString());
+                    break;
+                }
+            }
+
+            // handle messages outside of this class, for modularity
+            for (int i = 0; i < messageHandlers.Count; i++)
+            {
+                var h = messageHandlers[i];
+                if (h.handleTypes.Count == 0 || h.handleTypes.Contains(messageType))
+                {
+                    h.HandleMessageFromServer(messageType, buffer);
+                    handled = true;
+                }
+            }
+
+            if (!handled)
+            {
+                Debug.LogError(this.ToString() + " OnData unhandled MessageType == " + messageType.ToString());
             }
         }
 
@@ -78,7 +136,7 @@ namespace HhhNetwork.Client
             // try to reconnect here...?
 
         }
-        
+
         private void HandlePlayerLocalStart(byte[] buffer)
         {
             var msg = MessagePool.Get<PlayerLocalStartMessage>(buffer);
@@ -186,7 +244,7 @@ namespace HhhNetwork.Client
             PlayerTypeManager.instance.Return(player.gameObject);
             MessagePool.Return(msg);
         }
-        
+
         /// <summary>
         /// Is not implemented for clients. DO NOT USE ON CLIENTS! TODO: Not so nice to have a method that is not allowed to call!
         /// </summary>

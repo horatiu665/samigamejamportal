@@ -1,6 +1,6 @@
 namespace HhhNetwork
 {
-    public sealed class PlayerLocalConnectMessage : PlayerLocalConnectMessageDefault
+    public class PlayerLocalConnectMessage : PlayerLocalConnectMessageDefault
     {
         public string name
         {
