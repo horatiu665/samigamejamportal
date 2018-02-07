@@ -108,78 +108,7 @@ namespace HhhNetwork.Server
             _network.SendToAll(msg, QosType.Reliable);
             MessagePool.Return(msg);
         }
-
-        protected virtual void HandlePlayerLocalConnectfucked(int connectionId, byte[] buffer)
-        {
-            var nameMessage = MessagePool.Get<PlayerLocalConnectMessage>(buffer);
-            var playerType = nameMessage.playerType;
-            MessagePool.Return(nameMessage);
-
-            var player = GetPlayer<INetPlayer>(connectionId);
-            if (player != null)
-            {
-                Debug.LogWarning(this.ToString() + " HandlePlayerLocalConnect another player is already registered with connection id == " + connectionId.ToString());
-                return;
-            }
-
-            // get name from player message
-            var name = nameMessage.name;
-            if (string.IsNullOrEmpty(name))
-            {
-                name = "Random Name"; // TODO: what to do about players with no name? (can it even happen?)
-            }
-
-            var netId = GetNextPlayerId();
-            var pos = Random.insideUnitSphere * 3; //_startPositions[netId % _startPositions.Length].transform.position;
-
-            // a new client has connected - inform all other clients of the new player - do this before adding the new player to avoid sending the connect message to the new player
-            var connectMsg = MessagePool.Get<PlayerRemoteConnectMessage>(netId);
-            connectMsg.position = pos;
-            //connectMsg.originShift = NetOriginShiftManager.instance.GetPlayerOriginShift(netId);
-            connectMsg.name = name;
-            connectMsg.playerType = playerType;
-            _network.SendToAll(connectMsg, QosType.Reliable);
-
-            // Inform the new player of all the existing client players (if there are any)
-            if (_players.Count > 0)
-            {
-                var playerEnumerator = _players.GetEnumerator();
-                try
-                {
-                    while (playerEnumerator.MoveNext())
-                    {
-                        // send to the new connecting player, but send a connect message contaning details of all the other existing clients
-                        var p = playerEnumerator.Current.Value;
-                        connectMsg.netId = p.netId;
-                        connectMsg.position = p.gameObject.transform.position;
-                        //connectMsg.originShift = NetOriginShiftManager.instance.GetPlayerOriginShift(netId);
-                        //connectMsg.playerType = p.playerType;
-                        connectMsg.name = p.gameObject.name; // player name... how else to get it?
-                        _network.Send(connectionId, connectMsg, QosType.Reliable);
-                    }
-                }
-                finally
-                {
-                    playerEnumerator.Dispose();
-                }
-            }
-
-            MessagePool.Return(connectMsg);
-
-            // send a special 'start message' to the new player so that the local player can be set up
-            var startMsg = MessagePool.Get<PlayerLocalStartMessageDefault>(netId);
-            startMsg.position = pos;
-            startMsg.playerType = playerType;
-            _network.Send(connectionId, startMsg, QosType.Reliable);
-            MessagePool.Return(startMsg);
-
-            // actually create and add the new player
-            var newPlayer = PlayerTypeManager.instance.InstantiatePlayer<INetPlayer>(playerType, GameType.Server, pos);
-            AddPlayer(newPlayer, connectionId, netId);
-            newPlayer.gameObject.name = name;
-            Debug.Log(this.ToString() + " HandlePlayerName() - added new player by net id == " + netId.ToString() + " and name == " + name + " for connection id == " + connectionId.ToString());
-        }
-
+        
         private void HandlePlayerLocalConnect(int connectionId, byte[] buffer)
         {
             var localConnectMsg = MessagePool.Get<PlayerLocalConnectMessage>(buffer);

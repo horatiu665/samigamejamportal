@@ -1,6 +1,7 @@
 namespace HhhNetwork.Build.Editor
 {
     using System.IO;
+    using System.Linq;
     using System.Net.NetworkInformation;
     using UnityEditor;
     using UnityEditor.SceneManagement;
@@ -54,7 +55,18 @@ namespace HhhNetwork.Build.Editor
         [MenuItem("Build/Open Build Window")]
         public static void OpenBuildWindow()
         {
-            GetWindow<BuildScriptWindow>("Build Window", true);
+            // try to dock next to Game window as I like it -/H
+            EditorWindow[] windows = Resources.FindObjectsOfTypeAll<EditorWindow>();
+            var gameWindow = windows.FirstOrDefault(e => e.titleContent.text.Contains("Game"));
+
+            if (gameWindow != null)
+            {
+                GetWindow<BuildScriptWindow>("Build Window", true, gameWindow.GetType());
+            }
+            else
+            {
+                GetWindow<BuildScriptWindow>("Build Window", true);
+            }
         }
 
         private void OnEnable()

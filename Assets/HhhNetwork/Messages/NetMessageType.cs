@@ -17,7 +17,7 @@ namespace HhhNetwork
         LocalConnect = 0,
 
         /// <summary>
-        /// The first message sent from server to client informing the client of his local player setup.
+        /// The first message sent from server to client informing the client of his local player setup, and init the world.
         /// </summary>
         LocalStart = 1,
 
@@ -43,6 +43,17 @@ namespace HhhNetwork
         /// </summary>
         VRBodyUpdateS2C,
 
+        // 2. RB Sync Messages
+
+        /// <summary>
+        /// Server to clients. Big message with a lot of data about rigidbody syncing. 
+        /// </summary>
+        RigidbodySyncUpdate,
+
+        /// <summary>
+        /// Just debug shit
+        /// </summary>
+        RigidbodySyncSpawn,
 
 
     }
