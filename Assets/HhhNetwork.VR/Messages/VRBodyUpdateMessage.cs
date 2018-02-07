@@ -1,4 +1,4 @@
-namespace HhhNetwork
+namespace HhhNetwork.VR
 {
     public class VRBodyUpdateS2CMessage : VRBodyUpdateC2SMessage
     {

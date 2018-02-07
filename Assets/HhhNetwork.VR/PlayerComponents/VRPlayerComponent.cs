@@ -6,6 +6,7 @@ using Random = UnityEngine.Random;
 
 /// <summary>
 /// This component references the elements of the VR player, for ease of drag and dropping.
+/// Not in namespace on purpose, so it is easier to find
 /// </summary>
 public class VRPlayerComponent : MonoBehaviour
 {

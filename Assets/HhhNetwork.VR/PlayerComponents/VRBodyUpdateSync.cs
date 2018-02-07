@@ -1,4 +1,4 @@
-namespace HhhNetwork
+namespace HhhNetwork.VR
 {
     using UnityEngine;
 
