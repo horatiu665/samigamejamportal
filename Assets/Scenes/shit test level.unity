@@ -246,7 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b74e7567fc8fe2b45baf6c588751c4c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sceneName: Client Only
+  _sceneName: Server Only
   _pollFrequency: 0.1
 --- !u!4 &924476472
 Transform:
@@ -421,7 +421,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scenes:
   - path: Assets/Scenes/shit test level.unity
-  - path: Assets/Scenes/Templates/Client Only.unity
 --- !u!4 &1458681733
 Transform:
   m_ObjectHideFlags: 0

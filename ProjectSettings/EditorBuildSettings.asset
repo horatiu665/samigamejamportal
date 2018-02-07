@@ -9,5 +9,5 @@ EditorBuildSettings:
     path: Assets/Scenes/shit test level.unity
     guid: 6890ed057bde4d14598e9b777beb65f4
   - enabled: 1
-    path: Assets/Scenes/Templates/Client Only.unity
-    guid: b11345c6345ff5249897b956e9716437
+    path: Assets/Scenes/Templates/Server Only.unity
+    guid: 00000000000000000000000000000000

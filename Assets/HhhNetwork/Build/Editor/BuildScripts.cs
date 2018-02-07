@@ -264,6 +264,10 @@ namespace HhhNetwork.Build.Editor
                 {
                     return "x86_64";
                 }
+            case BuildTarget.Android:
+                {
+                    return "apk";
+                }
             }
 
             return string.Empty;
