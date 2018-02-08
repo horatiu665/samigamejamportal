@@ -29,7 +29,7 @@ public class RoomManager
     {
         amIServer = false;
         startupDone = false;
-        Rooms.SetRoomInviteNotificationCallback(AcceptingInviteCallback);
+        Rooms.SetRoomInviteAcceptedNotificationCallback(AcceptingInviteCallback);
         Rooms.SetUpdateNotificationCallback(RoomUpdateCallback);
     }
 
@@ -91,7 +91,7 @@ public class RoomManager
 
         roomID = msg.Data.ID;
 
-        if (msg.Data.Owner.ID == PlatformManager.MyID)
+        if (msg.Data.OwnerOptional.ID == PlatformManager.MyID)
         {
             amIServer = true;
         }
@@ -131,7 +131,7 @@ public class RoomManager
             return;
         }
 
-        PlatformManager.LogOutput("Joined Room " + msg.Data.ID + " owner: " + msg.Data.Owner.OculusID + " count: " + msg.Data.Users.Count);
+        PlatformManager.LogOutput("Joined Room " + msg.Data.ID + " owner: " + msg.Data.OwnerOptional.OculusID + " count: " + msg.Data.UsersOptional.Count);
         roomID = msg.Data.ID;
         ProcessRoomData (msg);
     }
@@ -148,8 +148,8 @@ public class RoomManager
             return;
         }
 
-        PlatformManager.LogOutput("Room Update " + msg.Data.ID + " owner: " + msg.Data.Owner.OculusID + " count: " + msg.Data.Users.Count);
-        ProcessRoomData (msg);
+        PlatformManager.LogOutput("Room Update " + msg.Data.ID + " owner: " + msg.Data.OwnerOptional.OculusID + " count: " + msg.Data.UsersOptional.Count);
+        ProcessRoomData(msg);
     }
 
     #endregion
@@ -172,7 +172,7 @@ public class RoomManager
 
     void ProcessRoomData(Message<Oculus.Platform.Models.Room> msg)
     {
-        if (msg.Data.Owner.ID == PlatformManager.MyID)
+        if (msg.Data.OwnerOptional.ID == PlatformManager.MyID)
         {
             amIServer = true;
         }
@@ -182,7 +182,7 @@ public class RoomManager
         }
 
         // if the caller left while I was in the process of joining, just use that as our new room
-        if (msg.Data.Users.Count == 1)
+        if (msg.Data.UsersOptional.Count == 1)
         {
             PlatformManager.TransitionToState(PlatformManager.State.WAITING_IN_A_ROOM);
         }
@@ -194,7 +194,7 @@ public class RoomManager
         // Look for users that left
         PlatformManager.MarkAllRemoteUsersAsNotInRoom();
 
-        foreach (User user in msg.Data.Users)
+        foreach (User user in msg.Data.UsersOptional)
         {
             if (user.ID != PlatformManager.MyID)
             {

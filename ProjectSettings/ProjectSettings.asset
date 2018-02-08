@@ -159,7 +159,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.Company.ProductName
-    Standalone: unity.Valve.SteamVR
+    Standalone: unity.hufdhudfh.hudfhdfuh
     Tizen: com.Company.ProductName
     iOS: com.Company.ProductName
     tvOS: com.Company.ProductName
@@ -624,7 +624,8 @@ PlayerSettings:
   webGLUseEmbeddedResources: 0
   webGLUseWasm: 0
   webGLCompressionFormat: 1
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    1: OCULUS
   platformArchitecture: {}
   scriptingBackend:
     Standalone: 0
@@ -718,7 +719,7 @@ PlayerSettings:
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
   cloudProjectId: dfcfedaa-2b91-453c-a518-cced7c42833f
-  projectName: 
+  projectName: VRMP3
   organizationId: horatiu665
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
