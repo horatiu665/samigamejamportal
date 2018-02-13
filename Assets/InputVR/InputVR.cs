@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -835,6 +835,20 @@ public class InputVR : MonoBehaviour
     /// </summary>
     public static class Vive
     {
+        private static bool isOculusInSteamVR
+        {
+            get
+            {
+                return
+#if !UNITY_WSA
+                SteamVR.instance.hmd_TrackingSystemName.Contains("oculus")
+                ||
+#endif
+                    false
+                ;
+            }
+        }
+
         public static float GetTrigger(bool left)
         {
             return Input.GetAxis(left ? InputVRConst.TriggerLeft : InputVRConst.TriggerRight);
@@ -969,8 +983,15 @@ public class InputVR : MonoBehaviour
             {
             case ViveButtonMask.Axis1:
             case ViveButtonMask.Trigger:
-                return Input.GetAxis(left ? InputVRConst.TriggerLeft : InputVRConst.TriggerRight) == 1f;
-
+                // this only because oculus in steamVR is fucking stupid
+                if (isOculusInSteamVR)
+                {
+                    return Input.GetAxis(left ? InputVRConst.TriggerLeft : InputVRConst.TriggerRight) > 0.5f;
+                }
+                else
+                {
+                    return Input.GetAxis(left ? InputVRConst.TriggerLeft : InputVRConst.TriggerRight) == 1f;
+                }
             case ViveButtonMask.Grip:
                 return GetGrip(left) == 1;
 
@@ -1000,8 +1021,14 @@ public class InputVR : MonoBehaviour
             case ViveButtonMask.Trigger:
                 // press down is when the prev frame is NOT 1, but the current is 1.
                 var prevFrame = left ? prevAxisValuesLeft[button] : prevAxisValuesRight[button];
-                return Input.GetAxis(left ? InputVRConst.TriggerLeft : InputVRConst.TriggerRight) == 1f && prevFrame.x != 1f;
-
+                if (isOculusInSteamVR)
+                {
+                    return Input.GetAxis(left ? InputVRConst.TriggerLeft : InputVRConst.TriggerRight) > 0.5f && prevFrame.x <= 0.5f;
+                }
+                else
+                {
+                    return Input.GetAxis(left ? InputVRConst.TriggerLeft : InputVRConst.TriggerRight) == 1f && prevFrame.x != 1f;
+                }
             case ViveButtonMask.Grip:
                 // there is no Down/Up button for this one, so we have to use the axis.
                 var prevValue = left ? prevAxisValuesLeft[button] : prevAxisValuesRight[button];
@@ -1033,8 +1060,14 @@ public class InputVR : MonoBehaviour
             case ViveButtonMask.Trigger:
                 // press up is when the prev frame is 1, but the current is not 1.
                 var prevFrame = left ? prevAxisValuesLeft[button] : prevAxisValuesRight[button];
-                return Input.GetAxis(left ? InputVRConst.TriggerLeft : InputVRConst.TriggerRight) != 1f && prevFrame.x == 1f;
-
+                if (isOculusInSteamVR)
+                {
+                    return Input.GetAxis(left ? InputVRConst.TriggerLeft : InputVRConst.TriggerRight) <= 0.5f && prevFrame.x > 0.5f;
+                }
+                else
+                {
+                    return Input.GetAxis(left ? InputVRConst.TriggerLeft : InputVRConst.TriggerRight) != 1f && prevFrame.x == 1f;
+                }
             case ViveButtonMask.Grip:
                 // there is no Down/Up button for this one, so we have to use the axis.
                 var prevValue = left ? prevAxisValuesLeft[button] : prevAxisValuesRight[button];
@@ -1064,6 +1097,7 @@ public class InputVR : MonoBehaviour
     /// </summary>
     public static class Oculus
     {
+#pragma warning disable 0162
         public static float GetTrigger(bool left)
         {
             return Input.GetAxis(left ? InputVRConst.TriggerLeft : InputVRConst.TriggerRight);
@@ -1105,6 +1139,9 @@ public class InputVR : MonoBehaviour
             switch (oculusButtonMask)
             {
             case OculusButtonMask.Trigger:
+#if OCULUS
+                return OVRInput.Get(OVRInput.Touch.PrimaryIndexTrigger, left ? OVRInput.Controller.LTouch : OVRInput.Controller.RTouch);
+#endif
                 return Input.GetButton(left ? InputVRConst.TriggerLeftTouch : InputVRConst.TriggerRightTouch);
 
             case OculusButtonMask.Grip:
@@ -1134,6 +1171,9 @@ public class InputVR : MonoBehaviour
             switch (oculusButtonMask)
             {
             case OculusButtonMask.Trigger:
+#if OCULUS
+                return OVRInput.GetDown(OVRInput.Touch.PrimaryIndexTrigger, left ? OVRInput.Controller.LTouch : OVRInput.Controller.RTouch);
+#endif
                 return Input.GetButtonDown(left ? InputVRConst.TriggerLeftTouch : InputVRConst.TriggerRightTouch);
 
             case OculusButtonMask.Grip:
@@ -1165,6 +1205,9 @@ public class InputVR : MonoBehaviour
             switch (oculusButtonMask)
             {
             case OculusButtonMask.Trigger:
+#if OCULUS
+                return OVRInput.GetUp(OVRInput.Touch.PrimaryIndexTrigger, left ? OVRInput.Controller.LTouch : OVRInput.Controller.RTouch);
+#endif
                 return Input.GetButtonUp(left ? InputVRConst.TriggerLeftTouch : InputVRConst.TriggerRightTouch);
 
             case OculusButtonMask.Grip:
@@ -1195,6 +1238,9 @@ public class InputVR : MonoBehaviour
             switch (oculusButtonMask)
             {
             case OculusButtonMask.Trigger:
+#if OCULUS
+                return OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, left ? OVRInput.Controller.LTouch : OVRInput.Controller.RTouch);
+#endif
                 return Input.GetAxis(left ? InputVRConst.TriggerLeft : InputVRConst.TriggerRight) == 1f;
 
             case OculusButtonMask.Grip:
@@ -1226,6 +1272,9 @@ public class InputVR : MonoBehaviour
             case OculusButtonMask.Trigger:
                 // press down is when the prev frame is NOT 1, but the current is 1.
                 var prevFrame = left ? prevAxisValuesLeft[button] : prevAxisValuesRight[button];
+#if OCULUS
+                return OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, left ? OVRInput.Controller.LTouch : OVRInput.Controller.RTouch);
+#endif
                 return Input.GetAxis(left ? InputVRConst.TriggerLeft : InputVRConst.TriggerRight) == 1f && prevFrame.x != 1f;
 
             case OculusButtonMask.Grip:
@@ -1259,6 +1308,9 @@ public class InputVR : MonoBehaviour
             case OculusButtonMask.Trigger:
                 // press up is when the prev frame is 1, but the current is not 1.
                 var prevFrame = left ? prevAxisValuesLeft[button] : prevAxisValuesRight[button];
+#if OCULUS
+                return OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger, left ? OVRInput.Controller.LTouch : OVRInput.Controller.RTouch);
+#endif
                 return Input.GetAxis(left ? InputVRConst.TriggerLeft : InputVRConst.TriggerRight) != 1f && prevFrame.x == 1f;
 
             case OculusButtonMask.Grip:
@@ -1284,6 +1336,7 @@ public class InputVR : MonoBehaviour
             return false;
         }
 
+#pragma warning restore 0162
     }
 
     /// <summary>

@@ -145,8 +145,8 @@ class HierarchyPrefabPimp
         {
             if (_prefabIcon == null)
             {
-                _prefabIcon = //(Texture)AssetDatabase.LoadAssetAtPath(@"Assets\Editor\Resources\Icons\prefabIcon.png", typeof(Texture));
-                    (Texture)Resources.Load("Icons/prefabIcon.png", typeof(Texture));
+                _prefabIcon = (Texture)AssetDatabase.LoadAssetAtPath(@"Assets\HierarchyPrefabPimp\Editor\Resources\Icons\prefabIcon.png", typeof(Texture));
+                //(Texture)Resources.Load("Icons/prefabIcon.png", typeof(Texture));
             }
             if (_prefabIcon == null)
             {
@@ -163,8 +163,8 @@ class HierarchyPrefabPimp
         {
             if (_prefabIconPlus == null)
             {
-                _prefabIconPlus = //(Texture)AssetDatabase.LoadAssetAtPath(@"Assets\Editor\Resources\Icons\prefabIconPlus.png", typeof(Texture));
-                    (Texture)Resources.Load("Icons/prefabIconPlus.png", typeof(Texture));
+                _prefabIconPlus = (Texture)AssetDatabase.LoadAssetAtPath(@"Assets\HierarchyPrefabPimp\Editor\Resources\Icons\prefabIconPlus.png", typeof(Texture));
+                //(Texture)Resources.Load("Icons/prefabIconPlus.png", typeof(Texture));
 
             }
             if (_prefabIconPlus == null)
@@ -182,8 +182,8 @@ class HierarchyPrefabPimp
         {
             if (_prefabIconWarning == null)
             {
-                _prefabIconWarning = //(Texture)AssetDatabase.LoadAssetAtPath(@"Assets\Editor\Resources\Icons\prefabIconWarning.png", typeof(Texture));
-                    (Texture)Resources.Load("Icons/prefabIconWarning.png", typeof(Texture));
+                _prefabIconWarning = (Texture)AssetDatabase.LoadAssetAtPath(@"Assets\HierarchyPrefabPimp\Editor\Resources\Icons\prefabIconWarning.png", typeof(Texture));
+                //(Texture)Resources.Load("Icons/prefabIconWarning.png", typeof(Texture));
 
             }
             if (_prefabIconWarning == null)
@@ -201,8 +201,8 @@ class HierarchyPrefabPimp
         {
             if (_prefabIconQuestion == null)
             {
-                _prefabIconQuestion = //(Texture)AssetDatabase.LoadAssetAtPath(@"Assets\Editor\Resources\Icons\prefabIconQuestion.png", typeof(Texture));
-                    (Texture)Resources.Load("Icons/prefabIconQuestion.png", typeof(Texture));
+                _prefabIconQuestion = (Texture)AssetDatabase.LoadAssetAtPath(@"Assets\HierarchyPrefabPimp\Editor\Resources\Icons\prefabIconQuestion.png", typeof(Texture));
+                //(Texture)Resources.Load("Icons/prefabIconQuestion.png", typeof(Texture));
             }
             if (_prefabIconQuestion == null)
             {
