@@ -67,5 +67,17 @@ namespace HhhNetwork
         /// </summary>
         Throw,
 
+        /// <summary>
+        /// Request sent by client to server - informing that the client wants to spawn a certain object and grab it
+        /// </summary>
+        SpawnGrabRequest,
+
+        /// <summary>
+        /// Response to the SpawnGrabRequest sent by server to clients - informing that the client is allowed to spawn a certain object and grab it.
+        /// </summary>
+        SpawnGrabResponse,
+
+        
+
     }
 }

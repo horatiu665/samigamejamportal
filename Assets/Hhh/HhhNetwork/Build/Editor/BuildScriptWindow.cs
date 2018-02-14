@@ -469,13 +469,53 @@ namespace HhhNetwork.Build.Editor
             }
 
             // vr mode
-            GUI.enabled = !Application.isPlaying;
-            var vrSupport = EditorGUILayout.Toggle("VR Mode", PlayerSettings.virtualRealitySupported);
-            if (!Application.isPlaying)
+            using (var vrrow = new EditorGUILayout.HorizontalScope())
             {
-                PlayerSettings.virtualRealitySupported = vrSupport;
+                GUI.enabled = !Application.isPlaying;
+                var vrSupport = EditorGUILayout.Toggle("VR Mode", PlayerSettings.virtualRealitySupported);
+                if (!Application.isPlaying)
+                {
+                    PlayerSettings.virtualRealitySupported = vrSupport;
+                }
+                GUI.enabled = true;
+
+                // buttons for VR platform definition - easier to access than player settings
+                var supDevices = UnityEngine.XR.XRSettings.supportedDevices;
+                var goodColor = Color.green;
+                var badColor = Color.red;
+
+                GUI.color = supDevices.Contains("OpenVR") ? goodColor : badColor;
+                if (GUILayout.Button("OpenVR"))
+                {
+                    if (supDevices.Contains("OpenVR"))
+                    {
+                        // do nothing...
+                    }
+                    else
+                    {
+                        // add a new array containing only OpenVR
+                        var buildTargetGroup = BuildPipeline.GetBuildTargetGroup(this._buildTarget);
+                        UnityEditorInternal.VR.VREditor.SetVREnabledDevicesOnTargetGroup(buildTargetGroup, new string[] { "OpenVR" });
+                    }
+                }
+
+                GUI.color = supDevices.Contains("Oculus") ? goodColor : badColor;
+                if (GUILayout.Button("Oculus"))
+                {
+                    if (supDevices.Contains("Oculus"))
+                    {
+                        // do nothing...
+                    }
+                    else
+                    {
+                        // add a new array containing only Oculus
+                        var buildTargetGroup = BuildPipeline.GetBuildTargetGroup(this._buildTarget);
+                        UnityEditorInternal.VR.VREditor.SetVREnabledDevicesOnTargetGroup(buildTargetGroup, new string[] { "Oculus" });
+                    }
+                }
+
+                GUI.color = Color.white;
             }
-            GUI.enabled = true;
 
         }
 

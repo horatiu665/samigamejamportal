@@ -45,7 +45,21 @@ namespace HhhVRGrabber
         }
 
         public delegate void GrabReleaseEventHandler(ControllerGrabberData controller, IHandleGrabbing grabbedObj);
-        public event GrabReleaseEventHandler OnGrab, OnUngrab;
+
+        /// <summary>
+        /// When an object is within range when pressing the grab.
+        /// </summary>
+        public event GrabReleaseEventHandler OnGrab;
+
+        /// <summary>
+        /// When the release happens. Depends on the settings of the GrabSystem: could be after another press of the grab button, but could also include the double-press perma-grab mechanic, or whatever.
+        /// </summary>
+        public event GrabReleaseEventHandler OnUngrab;
+
+        /// <summary>
+        /// When a grab is done but no object is within range or even highlighted. This may prompt a spawn or some other mechanic, another system can hook into it.
+        /// </summary>
+        public event GrabReleaseEventHandler OnGrabNothing;
 
         private void OnValidate()
         {
@@ -96,6 +110,14 @@ namespace HhhVRGrabber
                             {
                                 // no highlights either.
                                 // here we would be able to spawn+grab the previewed object (or do some other action on the grab button)
+                                if (OnGrabNothing != null)
+                                {
+                                    OnGrabNothing(c, null);
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("[GrabSystem] Highlighting something, yet couldn't grab.... hmmmm *thinks*");
                             }
                         }
                     }

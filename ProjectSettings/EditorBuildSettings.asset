@@ -9,5 +9,5 @@ EditorBuildSettings:
     path: Assets/Scenes/cool cuvbes.unity
     guid: 6aebfd3b98c93d74980582e33e30cbfc
   - enabled: 1
-    path: Assets/Scenes/Templates/Server Only.unity
-    guid: 4f50604fb22816a4d8da9c6ea9d6fbe0
+    path: Assets/Scenes/Templates/Client Only.unity
+    guid: 00000000000000000000000000000000

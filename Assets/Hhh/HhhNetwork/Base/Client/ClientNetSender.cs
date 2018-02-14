@@ -96,7 +96,7 @@ namespace HhhNetwork.Client
             _localConnectionId = NetworkTransport.Connect(_socketId, serverIp, serverPort, _exceptionConnectionId, out error);
 
             var e = (NetworkError)error;
-            Debug.Log(this.ToString() + " Connect() to " + serverIp + ":" + serverPort.ToString() + ", local connection ID == " + _localConnectionId.ToString() + ", result == " + e.ToString());
+            Debug.Log("<color=#55aa00>" + this.ToString() + " Connect() to " + serverIp + ":" + serverPort.ToString() +"</color>" + ", local connection ID == " + _localConnectionId.ToString() + ", result == " + e.ToString());
 
             var result = e == NetworkError.Ok && _localConnectionId >= 0;
             if (result)

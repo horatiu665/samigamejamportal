@@ -106,6 +106,9 @@ namespace HhhNetwork
             return _players.Remove(netId);
         }
 
+        /// <summary>
+        /// Only for SERVER! returns connectionId from player netId
+        /// </summary>
         public abstract int GetConnectionId(short netId);
 
         /// <summary>

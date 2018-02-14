@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +19,7 @@ public abstract class NetMessageHandlerBase : MonoBehaviour
     /// </summary>
     /// <param name="messageType"></param>
     /// <param name="buffer"></param>
-    public abstract void HandleMessageFromServer(NetMessageType messageType, byte[] buffer);
+    public abstract void ClientHandleMessageFromServer(NetMessageType messageType, byte[] buffer);
 
     /// <summary>
     /// Handles messages from the client. This only happens on the server.
@@ -27,6 +27,6 @@ public abstract class NetMessageHandlerBase : MonoBehaviour
     /// <param name="messageType"></param>
     /// <param name="buffer"></param>
     /// <param name="clientPlayerNetId"></param>
-    public abstract void HandleMessageFromClient(NetMessageType messageType, byte[] buffer, short clientPlayerNetId);
+    public abstract void ServerHandleMessageFromClient(NetMessageType messageType, byte[] buffer, short clientPlayerNetId);
 
 }

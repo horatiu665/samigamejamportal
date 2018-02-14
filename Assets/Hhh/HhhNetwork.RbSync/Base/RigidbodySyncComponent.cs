@@ -111,16 +111,19 @@ namespace HhhNetwork.RbSync
             }
         }
 
-        public HashSet<GameObject> stopUpdatingSenders = new HashSet<GameObject>();
+        /// <summary>
+        /// Hashset of all the sources of update inhibition... they are gameobjects but might as well be Objects. It is better than a bool in case there are 2 requests and 1 of them cancels - still 1 more to cancel before a full cancel.
+        /// </summary>
+        private HashSet<GameObject> updateInhibitors = new HashSet<GameObject>();
 
         public void StopUpdating(GameObject whosAskin)
         {
-            stopUpdatingSenders.Add(whosAskin);
+            updateInhibitors.Add(whosAskin);
         }
 
         public void ContinueUpdating(GameObject whosAskin)
         {
-            stopUpdatingSenders.Remove(whosAskin);
+            updateInhibitors.Remove(whosAskin);
         }
 
         private void OnEnable()
@@ -182,7 +185,7 @@ namespace HhhNetwork.RbSync
             }
 
             // these are objects that ask the rbSync to stop updating. Example: while being grabbed, impaled with joint..? part of ragdoll..? etc.
-            if (stopUpdatingSenders.Count > 0)
+            if (updateInhibitors.Count > 0)
             {
                 return;
             }
@@ -227,20 +230,7 @@ namespace HhhNetwork.RbSync
 
             _framesLerped++;
         }
-
-        private void UpdatePosTheOldWay()
-        {
-            var lastTimeDelta = Mathf.Clamp(_lastSyncTime - _prevSyncTime, _syncDeltaTimeRange.x, _syncDeltaTimeRange.y);
-            var t = _framesLerped * Time.fixedDeltaTime / lastTimeDelta;
-            transform.rotation = Quaternion.Slerp(_lastSyncRot, _targetRotation, t);
-            transform.position = Vector3.Lerp(_lastSyncPos, _targetPosition, t);
-            if (_printDebug)
-                Debug.Log(transform.name + " pos " + transform.position + " lerping to " + _targetPosition + "; HBU is" + _hasBeenUpdated, transform.gameObject);
-            _rb.velocity = Vector3.Lerp(_lastSyncVel, _targetVel, t);
-            _rb.angularVelocity = Vector3.Lerp(_lastSyncAV, _targetAV, t);
-            _framesLerped++;
-        }
-
+        
         public void Initialize(int syncId)
         {
             SetSyncId(syncId);
@@ -275,16 +265,7 @@ namespace HhhNetwork.RbSync
             }
             yield break;
         }
-
-        //public void Handle(RigidbodySyncManagerInitializationMessage message)
-        //{
-        //    if (!_registered)
-        //    {
-        //        message.manager.Register(this);
-        //        _registered = true;
-        //    }
-        //}
-
+        
         /// <summary>
         /// Handles a <see cref="RigidbodySyncData"/> update. Only called on clients.
         /// </summary>
@@ -350,7 +331,7 @@ namespace HhhNetwork.RbSync
         }
 
         /// <summary>
-        /// Gets the synchronize data. Also records the position and rotation for use in changed check. Only called on server.
+        /// Gets the synchronize data. Also records the position and rotation for use in changed check. Only called on server. Beware: assumption that it is only called once per RareUpdate
         /// </summary>
         /// <returns></returns>
         public RigidbodySyncData GetSyncData()

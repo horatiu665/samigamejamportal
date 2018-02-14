@@ -1,4 +1,4 @@
-﻿namespace HhhNetwork.VR
+namespace HhhNetwork.VR
 {
     using HhhNetwork.Server;
     using System.Collections;
@@ -23,7 +23,7 @@
             }
         }
 
-        public override void HandleMessageFromClient(NetMessageType messageType, byte[] buffer, short clientPlayerNetId)
+        public override void ServerHandleMessageFromClient(NetMessageType messageType, byte[] buffer, short clientPlayerNetId)
         {
             // if message is from a client to server
             if (messageType == NetMessageType.VRBodyUpdateC2S)
@@ -59,7 +59,7 @@
             }
         }
 
-        public override void HandleMessageFromServer(NetMessageType messageType, byte[] buffer)
+        public override void ClientHandleMessageFromServer(NetMessageType messageType, byte[] buffer)
         {
             // if message from server to clients
             if (messageType == NetMessageType.VRBodyUpdateS2C)

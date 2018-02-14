@@ -14,5 +14,44 @@ public class VRPlayerComponent : MonoBehaviour
     public Transform head;
     public Transform leftHand;
     public Transform rightHand;
+    public Transform root
+    {
+        get
+        {
+            return transform;
+        }
+    }
 
+    // due to leftHand and rightHand not having to be direct children of the root, we use this instead of localPosition.
+    public Vector3 leftHandLocalPosition
+    {
+        get
+        {
+            return root.InverseTransformPoint(leftHand.position);
+        }
+    }
+
+    public Vector3 rightHandLocalPosition
+    {
+        get
+        {
+            return root.InverseTransformPoint(rightHand.position);
+        }
+    }
+
+    public Quaternion leftHandLocalRotation
+    {
+        get
+        {
+            return Quaternion.Inverse(root.rotation) * leftHand.rotation;
+        }
+    }
+
+    public Quaternion rightHandLocalRotation
+    {
+        get
+        {
+            return Quaternion.Inverse(root.rotation) * rightHand.rotation;
+        }
+    }
 }

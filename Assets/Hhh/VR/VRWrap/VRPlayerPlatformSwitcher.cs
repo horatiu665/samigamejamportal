@@ -45,6 +45,11 @@ public class VRPlayerPlatformSwitcher : MonoBehaviour
     public GameObject oculusHead;
     public GameObject oculusLeft, oculusRight;
 
+    private void Reset()
+    {
+        OnValidate();
+    }
+
     private void OnValidate()
     {
         GetReferencesOculus();
@@ -71,7 +76,10 @@ public class VRPlayerPlatformSwitcher : MonoBehaviour
         GetReferencesOculus();
 
         oculusRoot.SetActive(true);
-        steamVRRoot.SetActive(false);
+        if (steamVRRoot != null)
+        {
+            steamVRRoot.SetActive(false);
+        }
         vrPlayer.head = oculusHead.transform;
         vrPlayer.leftHand = oculusLeft.transform;
         vrPlayer.rightHand = oculusRight.transform;
@@ -98,10 +106,18 @@ public class VRPlayerPlatformSwitcher : MonoBehaviour
             if (oculusLeft == null)
             {
                 oculusLeft = oCr.leftHandAnchor.gameObject;
+                if (oculusLeft.transform.childCount > 0)
+                {
+                    oculusLeft = oculusLeft.transform.GetChild(0).gameObject;
+                }
             }
             if (oculusRight == null)
             {
                 oculusRight = oCr.rightHandAnchor.gameObject;
+                if (oculusRight.transform.childCount > 0)
+                {
+                    oculusRight = oculusRight.transform.GetChild(0).gameObject;
+                }
             }
         }
 
@@ -113,7 +129,10 @@ public class VRPlayerPlatformSwitcher : MonoBehaviour
     {
         GetReferencesSteamVR();
 
-        oculusRoot.SetActive(false);
+        if (oculusRoot != null)
+        {
+            oculusRoot.SetActive(false);
+        }
         steamVRRoot.SetActive(true);
         vrPlayer.head = steamVrHead.transform;
         vrPlayer.leftHand = steamVrLeft.transform;

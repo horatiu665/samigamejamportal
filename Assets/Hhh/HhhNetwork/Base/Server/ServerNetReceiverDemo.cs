@@ -83,7 +83,7 @@ namespace HhhNetwork.Server
                 var h = messageHandlers[i];
                 if (h.handleTypes.Count == 0 || h.handleTypes.Contains(messageType))
                 {
-                    h.HandleMessageFromClient(messageType, buffer, player != null ? player.netId : (short)-1);
+                    h.ServerHandleMessageFromClient(messageType, buffer, player != null ? player.netId : (short)-1);
                     handled = true;
                 }
             }

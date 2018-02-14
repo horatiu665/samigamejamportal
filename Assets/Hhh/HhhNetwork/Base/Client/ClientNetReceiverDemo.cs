@@ -37,7 +37,7 @@ namespace HhhNetwork.Client
         {
             if (error != NetworkError.Ok)
             {
-                Debug.LogError(this.ToString() + " OnConnect could not establish a connection to server, error == " + error.ToString());
+                Debug.LogError("<color=red>" + this.ToString() + " OnConnect could not establish a connection to server" + "</color>" + ", error == " + error.ToString());
                 return;
             }
 
@@ -54,7 +54,7 @@ namespace HhhNetwork.Client
 
             // }
 
-            Debug.Log(this.ToString() + " OnConnect. Connection Id == " + connectionId.ToString() + ", error == " + error.ToString());
+            Debug.Log("<color=#339900>" + this.ToString() + " OnConnect. Connection Id == " + connectionId.ToString() + "</color>" + ", error == " + error.ToString());
         }
 
         public override void OnData(int connectionId, byte[] buffer, NetworkError error)
@@ -71,8 +71,8 @@ namespace HhhNetwork.Client
 
             if (printEveryMessageReceived)
             {
-                Debug.Log(this.ToString() + " OnData. Connection Id == " + connectionId.ToString()
-                    + ", error == " + error.ToString() + ", message type == " + messageType.ToString() + ", buffer size == " + buffer.Length.ToString() /*+ ", contents=\n" + buffer.DebugLogContents()*/);
+                Debug.Log("<color=#965637>" + this.ToString() + " OnData." + "</color>" + " Connection Id == " + connectionId.ToString()
+                    + ", error == " + error.ToString() + ", message type == <color=white>" + messageType.ToString() + "</color>, buffer size == " + buffer.Length.ToString() /*+ ", contents=\n" + buffer.DebugLogContents()*/);
             }
 
             switch (messageType)
@@ -108,7 +108,7 @@ namespace HhhNetwork.Client
                 var h = messageHandlers[i];
                 if (h.handleTypes.Count == 0 || h.handleTypes.Contains(messageType))
                 {
-                    h.HandleMessageFromServer(messageType, buffer);
+                    h.ClientHandleMessageFromServer(messageType, buffer);
                     handled = true;
                 }
             }
@@ -124,7 +124,7 @@ namespace HhhNetwork.Client
         /// </summary>
         public override void OnDisconnect(int connectionId, NetworkError error)
         {
-            Debug.Log(this.ToString() + " OnDisconnect. Connection Id == " + connectionId.ToString() + ", error == " + error.ToString());
+            Debug.Log("<color=red>" + this.ToString() + " OnDisconnect. Connection Id == " + connectionId.ToString() + "</color>" + ", error == " + error.ToString());
 
             //var onScreenText = OnScreenTextUIHandler.instance;
             //if (onScreenText != null)
@@ -172,7 +172,7 @@ namespace HhhNetwork.Client
             //    localPlayer.SetupRigidbodies(msg.headRbSyncId, msg.bodyRbSyncId);
             //}
 
-            Debug.Log(this.ToString() + " HandlePlayerStart created local player by id == " + localPlayer.netId.ToString() + " and name == " + localPlayer.gameObject.name);
+            Debug.Log("<color=#dd9922>" + this.ToString() + " HandlePlayerStart created local player" + "</color>" + " by id == " + localPlayer.netId.ToString() + " and name == " + localPlayer.gameObject.name);
             MessagePool.Return(msg);
 
             if (ConnectUIHandler.instance != null)
@@ -217,7 +217,7 @@ namespace HhhNetwork.Client
             //    player.SetupRigidbodies(msg.headRbSyncId, msg.bodyRbSyncId);
             //}
 
-            Debug.Log(this.ToString() + " HandlePlayerConnect created remote player by id == " + player.netId.ToString() + " and name == " + player.gameObject.name);
+            Debug.Log("<color=#dd9922>" + this.ToString() + " HandlePlayerConnect created remote player" + "</color>" + " by id == " + player.netId.ToString() + " and name == " + player.gameObject.name);
             MessagePool.Return(msg);
         }
 

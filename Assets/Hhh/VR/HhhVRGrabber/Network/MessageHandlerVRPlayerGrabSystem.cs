@@ -26,12 +26,8 @@ namespace HhhNetwork.VR
             }
         }
 
-        public override void HandleMessageFromClient(NetMessageType messageType, byte[] buffer, short clientPlayerNetId)
+        public override void ServerHandleMessageFromClient(NetMessageType messageType, byte[] buffer, short clientPlayerNetId)
         {
-            // WE ARE SERVER
-            // server receives message from client
-            // client wants to:
-            // - grab something
             switch (messageType)
             {
             case NetMessageType.Grab:
@@ -46,10 +42,12 @@ namespace HhhNetwork.VR
                             var grabSystem = player.gameObject.GetComponent<VRPlayerGrabSystem>();
                             var cgd = grabSystem.GetControllerGrabberData(msg.leftHand);
                             cgd.Grab(rbc.GetComponent<IHandleGrabbing>());
+                            rbc.StopUpdating(cgd.controller);
 
                             ServerNetSender.instance.SendToAll(msg, UnityEngine.Networking.QosType.ReliableSequenced, msg.netId);
                         }
                     }
+                    MessagePool.Return(msg);
                     break;
                 }
             case NetMessageType.Throw:
@@ -64,6 +62,7 @@ namespace HhhNetwork.VR
                             var grabSystem = player.gameObject.GetComponent<VRPlayerGrabSystem>();
                             var cgd = grabSystem.GetControllerGrabberData(msg.leftHand);
                             cgd.Ungrab();
+                            rbc.ContinueUpdating(cgd.controller);
 
                             var rb = rbc.rigidbody;
                             rb.position = msg.position;
@@ -76,17 +75,14 @@ namespace HhhNetwork.VR
                             ServerNetSender.instance.SendToAll(msg, UnityEngine.Networking.QosType.ReliableSequenced, msg.netId);
                         }
                     }
+                    MessagePool.Return(msg);
                     break;
                 }
             }
         }
 
-        public override void HandleMessageFromServer(NetMessageType messageType, byte[] buffer)
+        public override void ClientHandleMessageFromServer(NetMessageType messageType, byte[] buffer)
         {
-            // WE B CLIENT
-            // client receives message from server
-            // server tells client:
-            // - it's ok to grab something
             switch (messageType)
             {
             case NetMessageType.Grab:
@@ -101,9 +97,11 @@ namespace HhhNetwork.VR
                             var grabSystem = player.gameObject.GetComponent<VRPlayerGrabSystem>();
                             var cgd = grabSystem.GetControllerGrabberData(msg.leftHand);
                             cgd.Grab(rbc.GetComponent<IHandleGrabbing>());
-                            
+                            rbc.StopUpdating(cgd.controller);
+
                         }
                     }
+                    MessagePool.Return(msg);
                     break;
                 }
             case NetMessageType.Throw:
@@ -118,6 +116,7 @@ namespace HhhNetwork.VR
                             var grabSystem = player.gameObject.GetComponent<VRPlayerGrabSystem>();
                             var cgd = grabSystem.GetControllerGrabberData(msg.leftHand);
                             cgd.Ungrab();
+                            rbc.ContinueUpdating(cgd.controller);
 
                             var rb = rbc.rigidbody;
                             rb.position = msg.position;
@@ -128,6 +127,8 @@ namespace HhhNetwork.VR
                             
                         }
                     }
+                    MessagePool.Return(msg);
+
                     break;
                 }
             }

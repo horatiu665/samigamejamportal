@@ -1,4 +1,4 @@
-﻿namespace HhhNetwork.VR
+namespace HhhNetwork.VR
 {
     using HhhNetwork;
     using HhhNetwork.Client;
@@ -60,8 +60,8 @@
                 // populate message
                 if (clientToServerMessage.position == vrPlayer.transform.position &&
                     clientToServerMessage.headPosition == vrPlayer.head.localPosition &&
-                    clientToServerMessage.leftHandPosition == vrPlayer.leftHand.localPosition &&
-                    clientToServerMessage.rightHandPosition == vrPlayer.rightHand.localPosition)
+                    clientToServerMessage.leftHandPosition == vrPlayer.leftHandLocalPosition &&
+                    clientToServerMessage.rightHandPosition == vrPlayer.rightHandLocalPosition)
                 {
                     // There are no positional changes, no need to update
                     return;
@@ -72,11 +72,11 @@
                 clientToServerMessage.headPosition = vrPlayer.head.localPosition;
                 clientToServerMessage.headRotation = vrPlayer.head.localRotation;
 
-                clientToServerMessage.leftHandPosition = vrPlayer.leftHand.localPosition;
-                clientToServerMessage.leftHandRotation = vrPlayer.leftHand.localRotation;
+                clientToServerMessage.leftHandPosition = vrPlayer.leftHandLocalPosition;
+                clientToServerMessage.leftHandRotation = vrPlayer.leftHandLocalRotation;
 
-                clientToServerMessage.rightHandPosition = vrPlayer.rightHand.localPosition;
-                clientToServerMessage.rightHandRotation = vrPlayer.rightHand.localRotation;
+                clientToServerMessage.rightHandPosition = vrPlayer.rightHandLocalPosition;
+                clientToServerMessage.rightHandRotation = vrPlayer.rightHandLocalRotation;
 
                 ClientNetSender.instance.Send(clientToServerMessage, QosType.UnreliableSequenced);
             }
@@ -85,8 +85,8 @@
                 // populate message
                 if (serverToClientMessage.position == vrPlayer.transform.position &&
                     serverToClientMessage.headPosition == vrPlayer.head.localPosition &&
-                    serverToClientMessage.leftHandPosition == vrPlayer.leftHand.localPosition &&
-                    serverToClientMessage.rightHandPosition == vrPlayer.rightHand.localPosition)
+                    serverToClientMessage.leftHandPosition == vrPlayer.leftHandLocalPosition &&
+                    serverToClientMessage.rightHandPosition == vrPlayer.rightHandLocalPosition)
                 {
                     // There are no positional changes, no need to update
                     return;
@@ -98,11 +98,11 @@
                 serverToClientMessage.headPosition = vrPlayer.head.localPosition;
                 serverToClientMessage.headRotation = vrPlayer.head.localRotation;
 
-                serverToClientMessage.leftHandPosition = vrPlayer.leftHand.localPosition;
-                serverToClientMessage.leftHandRotation = vrPlayer.leftHand.localRotation;
+                serverToClientMessage.leftHandPosition = vrPlayer.leftHandLocalPosition;
+                serverToClientMessage.leftHandRotation = vrPlayer.leftHandLocalRotation;
 
-                serverToClientMessage.rightHandPosition = vrPlayer.rightHand.localPosition;
-                serverToClientMessage.rightHandRotation = vrPlayer.rightHand.localRotation;
+                serverToClientMessage.rightHandPosition = vrPlayer.rightHandLocalPosition;
+                serverToClientMessage.rightHandRotation = vrPlayer.rightHandLocalRotation;
 
                 // send to all except the player itself.
                 ServerNetSender.instance.SendToAll(serverToClientMessage, QosType.UnreliableSequenced, player.netId);

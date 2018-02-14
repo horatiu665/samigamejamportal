@@ -1,4 +1,4 @@
-﻿namespace HhhNetwork.RbSync
+namespace HhhNetwork.RbSync
 {
     using HhhPrefabManagement;
     using System.Collections;
@@ -24,7 +24,7 @@
             }
         }
 
-        public override void HandleMessageFromClient(NetMessageType messageType, byte[] buffer, short clientPlayerNetId)
+        public override void ServerHandleMessageFromClient(NetMessageType messageType, byte[] buffer, short clientPlayerNetId)
         {
             if (messageType == NetMessageType.LocalConnect)
             {
@@ -32,7 +32,7 @@
             }
         }
 
-        public override void HandleMessageFromServer(NetMessageType messageType, byte[] buffer)
+        public override void ClientHandleMessageFromServer(NetMessageType messageType, byte[] buffer)
         {
             if (messageType == NetMessageType.RigidbodySyncSpawn)
             {

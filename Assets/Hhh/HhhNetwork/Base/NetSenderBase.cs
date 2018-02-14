@@ -126,7 +126,7 @@ namespace HhhNetwork
 
             // Register for NetServices (to enable IsClient/IsServer)
             this.Register();
-            Debug.Log(this.ToString() + " Network Initialized and Ready");
+            Debug.Log("<color=#55dd11>" + this.ToString() + " Network Initialized and Ready" + "</color>");
         }
 
         protected abstract int GetSocket(HostTopology topology);
@@ -220,7 +220,7 @@ namespace HhhNetwork
             _socketId = -1;
 
             NetworkTransport.Shutdown();
-            Debug.Log(this.ToString() + " Network Shutdown");
+            Debug.Log("<color=red>" + this.ToString() + " Network Shutdown" + "</color>");
         }
 
         /// <summary>
