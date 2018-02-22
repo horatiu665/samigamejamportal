@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 114367363408617108}
   - component: {fileID: 114183610134580168}
   m_Layer: 0
-  m_Name: LocalPlayer VR demo
+  m_Name: LocalPlayer nonVR demo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 114477160157879480}
   - component: {fileID: 114899719067700580}
   m_Layer: 0
-  m_Name: RemotePlayer VR demo
+  m_Name: RemotePlayer nonVR demo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

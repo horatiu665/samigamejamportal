@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 114341089573178090}
   - component: {fileID: 114260562292229096}
   m_Layer: 0
-  m_Name: ServerPlayer VR demo
+  m_Name: ServerPlayer nonVR demo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
