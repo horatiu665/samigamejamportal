@@ -625,7 +625,7 @@ PlayerSettings:
   webGLUseWasm: 0
   webGLCompressionFormat: 1
   scriptingDefineSymbols:
-    1: OCULUS
+    1: OCULUS;USES_STEAM_VR
   platformArchitecture: {}
   scriptingBackend:
     Standalone: 0
