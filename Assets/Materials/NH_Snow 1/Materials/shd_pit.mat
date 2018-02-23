@@ -7,18 +7,21 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: shd_pit
-  m_Shader: {fileID: 4800000, guid: 97d94faf782e3468dbdbcae89b3596f0, type: 3}
+  m_Shader: {fileID: 4800000, guid: 4400da8b1aafa40788432d2093bcbbde, type: 3}
   m_ShaderKeywords: TESSELLATE _EMISSION
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
-  stringTagMap:
-    RenderType: Opaque
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _AnimTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -64,11 +67,14 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _Alpha: 1
     - _AlphaCutoff: 0.5
+    - _AnimRepeat: 1
     - _BumpScale: 1
     - _Cull: 2
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
+    - _Distortion: 0
     - _DstBlend: 0
     - _EdgeLength: 12
     - _FogAmount: 0.225
@@ -89,6 +95,8 @@ Material:
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _SpeedX: 0
+    - _SpeedY: 0
     - _SrcBlend: 1
     - _Transparency: 0
     - _UVSec: 0
