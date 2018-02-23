@@ -7,14 +7,13 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: shd_snowLS
-  m_Shader: {fileID: 10751, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: aa632880fd6c58843963c30785552f75, type: 3}
   m_ShaderKeywords: _ALPHATEST_ON _EMISSION _GLOSSYREFLECTIONS_OFF _SPECULARHIGHLIGHTS_OFF
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap:
-    RenderType: Transparent
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -66,7 +65,7 @@ Material:
     - _DarkenAmount: 2
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _FogAmount: 0.01
+    - _FogAmount: 0.073
     - _FogCutoff: 1
     - _FogValue: 2
     - _GlossMapScale: 0
@@ -75,6 +74,7 @@ Material:
     - _InvFade: 0.58
     - _Metallic: 0
     - _Mode: 1
+    - _NoFogArea: 0.29
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
@@ -86,5 +86,5 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 0.922}
     - _EmisColor: {r: 0.2, g: 0.2, b: 0.2, a: 0}
     - _EmissionColor: {r: 0.9044118, g: 0.9044118, b: 0.9044118, a: 1}
-    - _FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _FogColor: {r: 0.2028547, g: 0.3701348, b: 0.9852941, a: 1}
     - _TintColor: {r: 1, g: 1, b: 1, a: 1}
