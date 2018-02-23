@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 7c6d88681c8cbdc40a84df2ab7836e04
-timeCreated: 1519322487
+guid: 10eed5f66b9e45948b32db950ff7d61a
+timeCreated: 1519383699
 licenseType: Pro
 ModelImporter:
   serializedVersion: 22
@@ -15,8 +15,7 @@ ModelImporter:
     100014: Box008
     100016: Box009
     100018: Box010
-    100020: human
-    100022: //RootNode
+    100020: //RootNode
     400000: Box001
     400002: Box002
     400004: Box003
@@ -27,10 +26,8 @@ ModelImporter:
     400014: Box008
     400016: Box009
     400018: Box010
-    400020: human
-    400022: //RootNode
-    2100000: 01 - Default
-    2100002: No Name
+    400020: //RootNode
+    2100000: No Name
     2300000: Box001
     2300002: Box002
     2300004: Box003
@@ -41,7 +38,6 @@ ModelImporter:
     2300014: Box008
     2300016: Box009
     2300018: Box010
-    2300020: human
     3300000: Box001
     3300002: Box002
     3300004: Box003
@@ -52,18 +48,17 @@ ModelImporter:
     3300014: Box008
     3300016: Box009
     3300018: Box010
-    3300020: human
     4300000: Box001
     4300002: Box002
     4300004: Box003
     4300006: Box004
-    4300008: human
-    4300010: Box005
-    4300012: Box006
-    4300014: Box007
-    4300016: Box008
-    4300018: Box009
-    4300020: Box010
+    4300008: Box005
+    4300010: Box006
+    4300012: Box007
+    4300014: Box008
+    4300016: Box009
+    4300018: Box010
+    7400000: Take 001
     9500000: //RootNode
   externalObjects: {}
   materials:

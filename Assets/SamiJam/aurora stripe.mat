@@ -61,7 +61,7 @@ Material:
     m_Floats:
     - _BumpScale: 1
     - _ColorGamma: 1
-    - _ColorLuminosity: 0.08
+    - _ColorLuminosity: 0.02
     - _ColorSaturation: 1.175
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
@@ -83,8 +83,10 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FlickerLuminosity: {r: 1.64, g: 19, b: 0, a: 0}
-    - _FlickerSaturation: {r: 0.69, g: 17, b: 0, a: 0}
+    - _FlickerLuminosity: {r: 0.5, g: 19, b: 0, a: 0}
+    - _FlickerSaturation: {r: 0, g: 17, b: 0, a: 0}
     - _FlickerSize: {r: 0, g: 1, b: 0, a: 0}
     - _RandomWobbleVector: {r: 113.235, g: 217.61346, b: 79.132416, a: 94.8917}
+    - _RandomWobbleVector1: {r: 113.235, g: 217.61346, b: 79.132416, a: 94.8917}
+    - _RandomWobbleVector2: {r: 113.235, g: 217.61346, b: 79.132416, a: 94.8917}
     - _TintColor: {r: 0, g: 1, b: 0, a: 1}
