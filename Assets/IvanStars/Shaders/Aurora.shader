@@ -15,6 +15,8 @@ Shader "Aurora"
 		_FlickerSize ("Flicker: Size", Vector) = (0.1, 1, 0, 0)
 		_RandomWobbleVector1 ("Random Wobble Vector 1", Vector) = (113.235, 217.61346, 79.1324123, 94.8917)
 		_RandomWobbleVector2 ("Random Wobble Vector 2", Vector) = (125.543, 96.645, 83.12678, 126.46441)
+	
+		_Dithering ("Dithering", Vector) = (1000, 1, 0, 0)
 	}
 
 	SubShader 
@@ -55,9 +57,10 @@ Shader "Aurora"
 
 				struct FS_INPUT
 				{
-					float4	pos		: POSITION;
-					float2  tex0	: TEXCOORD0;
-					float4	col		: COLOR;
+					float4	pos 		: POSITION;
+					float2  tex0		: TEXCOORD0;
+					float4	col			: COLOR;
+					float4  tex1		: TEXCOORD1;
 				};
 
 
@@ -78,7 +81,39 @@ Shader "Aurora"
 				float4 _TintColor;
 				float4 _RandomWobbleVector1;
 				float4 _RandomWobbleVector2;
-				
+				float4 _Dithering;
+
+				// *** 
+				// random dithering
+				// *** 
+
+				float mod289(float x) {return x - floor(x * (1.0 / 289.0)) * 289.0;}
+				float4 perm(float4 x) { return mod289(((x * 34.0) + 1.0) * x); }
+				float fract(float x) { return x - floor(x); }
+
+				float noise(float3 p) {
+				    float3 a = floor(p);
+				    float3 d = p - a;
+				    d = d * d * (3.0 - 2.0 * d);
+
+				    float4 b = a.xxyy + float4(0.0, 1.0, 0.0, 1.0);
+				    float4 k1 = perm(b.xyxy);
+				    float4 k2 = perm(k1.xyxy + b.zzww);
+
+				    float4 c = k2 + a.zzzz;
+				    float4 k3 = perm(c);
+				    float4 k4 = perm(c + 1.0);
+
+				    float4 o1 = fract(k3 * (1.0 / 41.0));
+				    float4 o2 = fract(k4 * (1.0 / 41.0));
+
+				    float4 o3 = o2 * d.z + o1 * (1.0 - d.z);
+				    float2 o4 = o3.yw * d.x + o3.xz * (1.0 - d.x);
+
+				    return o4.y * d.y + o4.x * (1.0 - d.y);
+				}
+
+
 				// **************************************************************
 				// Shader Funks													*
 				// **************************************************************
@@ -113,56 +148,22 @@ Shader "Aurora"
 					float luminosity = pow(color.a, _ColorGamma) * _ColorLuminosity;
 					output.col = color * luminosity;
 
+					output.tex1 = float4(v.vertex.xyz + worldPos, 0); 
+
 					return output;
 				}
-
-
-
-				// Geometry Shader -----------------------------------------------------
-				/*[maxvertexcount(4)]
-				void GS_Main(point GS_INPUT p[1], inout TriangleStream<FS_INPUT> triStream)
-				{
-					float3 up = UNITY_MATRIX_IT_MV[1].xyz;
-					float3 right = -UNITY_MATRIX_IT_MV[0].xyz;
-
-					float positionBasedPhase = p[0].pos.x * 113.2343 + p[0].pos.y * 217.6134 + p[0].pos.z * 7.673239;
-					float size = _Size + getNoise(_FlickerSize.y, positionBasedPhase) * _FlickerSize.x;
-
-					float halfS = 0.5f * size * p[0].col.a;
-							
-					float4 v[4];
-					v[0] = float4(p[0].pos + halfS * right - halfS * up, 1.0f);
-					v[1] = float4(p[0].pos + halfS * right + halfS * up, 1.0f);
-					v[2] = float4(p[0].pos - halfS * right - halfS * up, 1.0f);
-					v[3] = float4(p[0].pos - halfS * right + halfS * up, 1.0f);
-
-					FS_INPUT pIn;
-
-					pIn.col = p[0].col;
-
-					pIn.pos = UnityObjectToClipPos(v[0]);
-					pIn.tex0 = float2(1.0f, 0.0f);
-					triStream.Append(pIn);
-
-					pIn.pos = UnityObjectToClipPos(v[1]);
-					pIn.tex0 = float2(1.0f, 1.0f);
-					triStream.Append(pIn);
-
-					pIn.pos = UnityObjectToClipPos(v[2]);
-					pIn.tex0 = float2(0.0f, 0.0f);
-					triStream.Append(pIn);
-
-					pIn.pos = UnityObjectToClipPos(v[3]);
-					pIn.tex0 = float2(0.0f, 1.0f);
-					triStream.Append(pIn);
-				}*/
-
-
 
 				// Fragment Shader -----------------------------------------------
 				float4 FS_Main(FS_INPUT input) : COLOR
 				{
-					return tex2D(_SpriteTex, input.tex0) * input.col * 2;
+					float4 final = tex2D(_SpriteTex, input.tex0) * input.col * 2;
+					float randomizedColor = noise(float3(input.tex0.xy * _Dithering.x, input.tex0.x)) * _Dithering.y;
+					//final = float4(final.xyz, final.w * randomizedColor);
+					final *= 1 + randomizedColor;
+					//final.a *= randomizedColor;
+					return final;
+
+					//return tex2D(_SpriteTex, input.tex0) * input.col * 2;
 				}
 
 			ENDCG
