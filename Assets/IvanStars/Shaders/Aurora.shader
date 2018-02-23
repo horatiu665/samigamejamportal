@@ -13,8 +13,7 @@ Shader "Aurora"
 		_FlickerLuminosity ("Flicker: Luminosity", Vector) = (0.1, 1, 0, 0)
 		_FlickerSaturation ("Flicker: Saturation", Vector) = (0.1, 1, 0, 0)
 		_FlickerSize ("Flicker: Size", Vector) = (0.1, 1, 0, 0)
-		_GlobalOffset ("Global Offset", Range(0, 100)) = 1
-
+		_RandomWobbleVector ("Random Wobble Vector 1", Vector) = (113.235, 217.61346, 79.1324123, 94.8917)
 	}
 
 	SubShader 
@@ -72,11 +71,11 @@ Shader "Aurora"
 				float _ColorSaturation;
 				float _ColorLuminosity;
 				float _ColorGamma;
-				float _GlobalOffset;
 				float4 _FlickerSaturation;
 				float4 _FlickerLuminosity;
 				float4 _FlickerSize;
 				float4 _TintColor;
+				float4 _RandomWobbleVector;
 				
 				// **************************************************************
 				// Shader Funks													*
@@ -101,9 +100,9 @@ Shader "Aurora"
 					output.tex0 = v.texcoord;
 
 					// lerp between grayscale version of v.color, and v.color, with _ColorSaturation as the lerp factor
-					float positionBasedPhase = v.vertex.x * 113.235 + v.vertex.y * 217.61346 + v.vertex.z * 79.1324123;
+					float positionBasedPhase = v.vertex.x * _RandomWobbleVector.x + v.vertex.y * _RandomWobbleVector.y + v.vertex.z * _RandomWobbleVector.z;
 					float3 worldPos = mul(unity_ObjectToWorld, v.vertex.xyz);
-					float worldPositionBasedPhase = worldPos.x * _GlobalOffset + worldPos.y * _GlobalOffset + worldPos.z * _GlobalOffset; 
+					float worldPositionBasedPhase = worldPos.x * _RandomWobbleVector.y + worldPos.y * _RandomWobbleVector.z + worldPos.z * _RandomWobbleVector.w; 
 					positionBasedPhase += worldPositionBasedPhase;
 					float lum = Luminance(v.color.rgb) + getNoise(_FlickerLuminosity.y, positionBasedPhase) * _FlickerLuminosity.x;
 					float sat = _ColorSaturation + getNoise(_FlickerSaturation.y, positionBasedPhase) * _FlickerSaturation.x;

@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 public class AuroraVertexColor : MonoBehaviour
 {
     public Color allColor = Color.green;
+    public Vector4 vector = new Vector4(113.235f, 217.61346f, 79.1324123f, 94.8917f);
 
     [SerializeField]
     private Renderer _renderer;
@@ -24,6 +25,12 @@ public class AuroraVertexColor : MonoBehaviour
 
     public bool useSharedMat = false;
 
+    [DebugButton]
+    private void GetVectorFromMaterial()
+    {
+        vector = renderer.sharedMaterial.GetVector("_RandomWobbleVector");
+    }
+
     private void OnEnable()
     {
         OnValidate();
@@ -31,13 +38,19 @@ public class AuroraVertexColor : MonoBehaviour
 
     void OnValidate()
     {
-        if (useSharedMat)
+        if (!Application.isPlaying || useSharedMat)
         {
+            if (vector.x == vector.y && vector.y == vector.z && vector.z == vector.w && vector.z == 0)
+            {
+                GetVectorFromMaterial();
+            }
             renderer.sharedMaterial.SetColor("_TintColor", allColor);
+            renderer.sharedMaterial.SetVector("_RandomWobbleVector", vector);
         }
         else
         {
             renderer.material.SetColor("_TintColor", allColor);
+            renderer.material.SetVector("_RandomWobbleVector", vector);
         }
     }
 }

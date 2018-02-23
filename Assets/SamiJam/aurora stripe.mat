@@ -66,7 +66,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _GlobalOffset: 12.4
+    - _GlobalOffset: 6.215
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -86,4 +86,5 @@ Material:
     - _FlickerLuminosity: {r: 1.64, g: 19, b: 0, a: 0}
     - _FlickerSaturation: {r: 0.69, g: 17, b: 0, a: 0}
     - _FlickerSize: {r: 0, g: 1, b: 0, a: 0}
-    - _TintColor: {r: 0, g: 0.9485294, b: 0.16353959, a: 1}
+    - _RandomWobbleVector: {r: 113.235, g: 217.61346, b: 79.132416, a: 94.8917}
+    - _TintColor: {r: 0, g: 1, b: 0, a: 1}
