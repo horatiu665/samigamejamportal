@@ -401,7 +401,7 @@ public class Portal : MonoBehaviour
 		isDeforming = true;
 	}
 
-	public delegate void SwitchedDimensions(string dimensionName);
+	public delegate void SwitchedDimensions(string oldDimension);
 	public static event SwitchedDimensions OnSwitchedDimensions;
 
 	private void SwitchDimensions ()

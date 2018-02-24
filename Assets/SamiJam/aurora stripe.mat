@@ -84,7 +84,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Dithering: {r: 10000, g: 0.4, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FlickerLuminosity: {r: 0.5, g: 15.8, b: 0, a: 0}
+    - _FlickerLuminosity: {r: 0.5, g: 19, b: 0, a: 0}
     - _FlickerSaturation: {r: 0, g: 17, b: 0, a: 0}
     - _FlickerSize: {r: 0, g: 1, b: 0, a: 0}
     - _RandomWobbleVector: {r: 113.235, g: 217.61346, b: 79.132416, a: 94.8917}

@@ -21,6 +21,8 @@ AudioMixerController:
     - 102d4b5d3ae239848ba3e13456e5bb86
     - 987e3f1d00e236a429579a1b82c123fe
     - 0c0200f4bd912984f8f44fa697b65272
+    - dc88b14370608804ea5fbe9fcc578ad3
+    - 301cc77da3c01114a83a0884f9608b22
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -33,6 +35,7 @@ AudioMixerGroupController:
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 102d4b5d3ae239848ba3e13456e5bb86
   m_Children:
+  - {fileID: 243820450140661558}
   - {fileID: 243805734888483556}
   - {fileID: 243418394096802750}
   m_Volume: 3f22514e45cd36b4c8b1059e5f559793
@@ -64,8 +67,29 @@ AudioMixerSnapshotController:
   m_Name: SamiLand
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: d319e08cf7f6acb4ba56fa240e565e06
-  m_FloatValues: {}
+  m_FloatValues:
+    f33a7fb2b4ae2cb4e8b7d336d9e36f81: 8.614072
+    8a2cc72eada04c14282008fb11d99e94: -80
+    0a8b20cf564008b4caf5934fe40cf9e7: -14.816608
   m_TransitionOverrides: {}
+--- !u!243 &243321227387792890
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: OutsideWindow
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: dc88b14370608804ea5fbe9fcc578ad3
+  m_Children: []
+  m_Volume: abc73e2972e76394d8951f72aea5042a
+  m_Pitch: b9d1d812d45c8c3419daf2fdbb326447
+  m_Effects:
+  - {fileID: 244630740584170862}
+  - {fileID: 244694633980606560}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!243 &243418394096802750
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -74,7 +98,8 @@ AudioMixerGroupController:
   m_Name: CITY
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 0c0200f4bd912984f8f44fa697b65272
-  m_Children: []
+  m_Children:
+  - {fileID: 243321227387792890}
   m_Volume: 8a2cc72eada04c14282008fb11d99e94
   m_Pitch: ff45c657ca4c9984d9f3f5e231b2294d
   m_Effects:
@@ -96,6 +121,23 @@ AudioMixerGroupController:
   m_Pitch: 29d359c9e14f15d478c6dd90f45266fc
   m_Effects:
   - {fileID: 244166626424722762}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!243 &243820450140661558
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: MUSIC
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 301cc77da3c01114a83a0884f9608b22
+  m_Children: []
+  m_Volume: 0a8b20cf564008b4caf5934fe40cf9e7
+  m_Pitch: 2bb05c98b31633e4b8021558f23310ee
+  m_Effects:
+  - {fileID: 244516803024606572}
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0
@@ -126,6 +168,49 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!244 &244516803024606572
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_EffectID: 6f8c49afba76428418ca08f98fe316d9
+  m_EffectName: Attenuation
+  m_MixLevel: 1fa7c65b96e0e064e92251cf49563d3c
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!244 &244630740584170862
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_EffectID: b018d3d6238f12f468952aea8b130d4d
+  m_EffectName: Attenuation
+  m_MixLevel: 8302f881b8c7d774bb75cab30b2d8e4b
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!244 &244694633980606560
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_EffectID: 367b99637035c534f8674c94e605a08c
+  m_EffectName: Lowpass
+  m_MixLevel: c7e281c12f62c854bbc23fbd8fac4024
+  m_Parameters:
+  - m_ParameterName: Cutoff freq
+    m_GUID: f69c0129ccc3df64fb3b751cfcc0cada
+  - m_ParameterName: Resonance
+    m_GUID: fe8f82f20d1a8854ca2e84b5a6f1358b
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!245 &245881998577483394
 AudioMixerSnapshotController:
   m_ObjectHideFlags: 0
@@ -134,5 +219,10 @@ AudioMixerSnapshotController:
   m_Name: CityLand
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 7692417ae12a2ba459cdcb7108603cab
-  m_FloatValues: {}
+  m_FloatValues:
+    f33a7fb2b4ae2cb4e8b7d336d9e36f81: -80
+    fe8f82f20d1a8854ca2e84b5a6f1358b: 1
+    f69c0129ccc3df64fb3b751cfcc0cada: 20908
+    abc73e2972e76394d8951f72aea5042a: -4.1973577
+    0a8b20cf564008b4caf5934fe40cf9e7: -27.943817
   m_TransitionOverrides: {}

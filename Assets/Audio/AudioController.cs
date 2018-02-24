@@ -11,10 +11,14 @@ public class AudioController : MonoBehaviour
 	public Dimension samiLand, cityLand;
 	public float transitionTime =.2f;
 	public AudioMixerSnapshot samiSnapshot, citySnapshot;
+	public AudioSource audioSource;
+	public AudioClip portalTransitionSound;
+	public AmbienceDesigner ambienceDesigner;
 
 
 	private void Start()
 	{
+		ambienceDesigner.Play();
 		if (samiLand.initialWorld)
 		{
 			samiSnapshot.TransitionTo(0);
@@ -37,11 +41,12 @@ public class AudioController : MonoBehaviour
 
 	private void PortalOnOnSwitchedDimensions(string dimensionName)
 	{
-		if (dimensionName == samiLand.name)
+		audioSource.PlayOneShot(portalTransitionSound);
+		if (dimensionName == cityLand.name)
 		{
 			samiSnapshot.TransitionTo(transitionTime);
 		}
-		else if (dimensionName == cityLand.name)
+		else if (dimensionName == samiLand.name)
 		{
 			citySnapshot.TransitionTo(transitionTime);	
 		}
