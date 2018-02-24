@@ -401,11 +401,15 @@ public class Portal : MonoBehaviour
 		isDeforming = true;
 	}
 
+	public delegate void SwitchedDimensions(string dimensionName);
+	public static event SwitchedDimensions OnSwitchedDimensions;
+
 	private void SwitchDimensions ()
 	{
 		DimensionChanger.SwitchCameraRender (this.mainCamera, FromDimension ().layer, ToDimension ().layer, ToDimension ().customSkybox);
 		DimensionChanger.SwitchDimensions (this.mainCamera.gameObject, FromDimension (), ToDimension ());
 		ToDimension ().SwitchConnectingPortals ();
+		if(OnSwitchedDimensions != null) OnSwitchedDimensions.Invoke(ToDimension().name);
 	}
 
 	public void SwitchPortalDimensions ()
