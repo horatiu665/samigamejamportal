@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (c) 2017 VR Stuff
  */
 
@@ -82,7 +82,9 @@ public class ControllerGrabObject : MonoBehaviour
 		objectInHand = collidingObject;
 		collidingObject = null;
 		var joint = AddFixedJoint();
-		joint.connectedBody = objectInHand.GetComponent<Rigidbody>();
+        var r = objectInHand.GetComponent<Rigidbody>();
+        joint.connectedBody = r;
+        r.isKinematic = false;
 	}
 
 	private FixedJoint AddFixedJoint()

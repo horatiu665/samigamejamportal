@@ -522,7 +522,7 @@ MonoBehaviour:
   shrinkAcceleration: 0.03
   shrinkDeceleration: 0.1
   whatToScale: {fileID: 4496983269628764}
-  lastBitScale: 0.95
+  lastBitScale: 0.5
   lastBitDuration: 0.44
   lastBitCurve:
     serializedVersion: 2
