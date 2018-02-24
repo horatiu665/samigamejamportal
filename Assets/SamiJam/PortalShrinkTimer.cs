@@ -7,6 +7,19 @@ using Random = UnityEngine.Random;
 
 public class PortalShrinkTimer : MonoBehaviour
 {
+    private static PortalShrinkTimer _instance;
+    public static PortalShrinkTimer instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType<PortalShrinkTimer>();
+            }
+            return _instance;
+        }
+    }
+
     [SerializeField]
     private Portal _portal;
     public Portal portal
@@ -145,4 +158,14 @@ public class PortalShrinkTimer : MonoBehaviour
         startedShrinking = false;
         whatToScale.transform.localScale = initScale;
     }
+
+    /// <summary>
+    /// 0 is no shrink. 1 is full shrink, just before lastBit clamping animation. Use startedShrinking to see if the portal is shrinking.
+    /// </summary>
+    /// <returns></returns>
+    public float GetShrink01()
+    {
+        return Mathf.InverseLerp(this.initScale.x, lastBitScale, whatToScale.localScale.x);
+    }
+
 }
