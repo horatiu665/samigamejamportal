@@ -77,5 +77,5 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _RandomizeColor: {r: 1000, g: 1, b: 1, a: 1}
-    - _SkyColorBottom: {r: 0.10705016, g: 0.121927544, b: 0.2205882, a: 1}
+    - _SkyColorBottom: {r: 0.13246109, g: 0.14882621, b: 0.25735295, a: 1}
     - _SkyColorTop: {r: 0, g: 0.0031947163, b: 0.066176474, a: 1}
