@@ -1,0 +1,138 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!241 &24100000
+AudioMixerController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Portal
+  m_OutputGroup: {fileID: 0}
+  m_MasterGroup: {fileID: 24300002}
+  m_Snapshots:
+  - {fileID: 24500006}
+  - {fileID: 245881998577483394}
+  m_StartSnapshot: {fileID: 24500006}
+  m_SuspendThreshold: -80
+  m_EnableSuspend: 1
+  m_UpdateMode: 0
+  m_ExposedParameters: []
+  m_AudioMixerGroupViews:
+  - guids:
+    - 102d4b5d3ae239848ba3e13456e5bb86
+    - 987e3f1d00e236a429579a1b82c123fe
+    - 0c0200f4bd912984f8f44fa697b65272
+    name: View
+  m_CurrentViewIndex: 0
+  m_TargetSnapshot: {fileID: 24500006}
+--- !u!243 &24300002
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Master
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 102d4b5d3ae239848ba3e13456e5bb86
+  m_Children:
+  - {fileID: 243805734888483556}
+  - {fileID: 243418394096802750}
+  m_Volume: 3f22514e45cd36b4c8b1059e5f559793
+  m_Pitch: 2165e28df69197b41b9a2fc7ff51c5a2
+  m_Effects:
+  - {fileID: 24400004}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!244 &24400004
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_EffectID: e4824808ae0722f4c85d0de397bcc8b2
+  m_EffectName: Attenuation
+  m_MixLevel: cc8caba47593a974093631bb541236a4
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!245 &24500006
+AudioMixerSnapshotController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: SamiLand
+  m_AudioMixer: {fileID: 24100000}
+  m_SnapshotID: d319e08cf7f6acb4ba56fa240e565e06
+  m_FloatValues: {}
+  m_TransitionOverrides: {}
+--- !u!243 &243418394096802750
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: CITY
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 0c0200f4bd912984f8f44fa697b65272
+  m_Children: []
+  m_Volume: 8a2cc72eada04c14282008fb11d99e94
+  m_Pitch: ff45c657ca4c9984d9f3f5e231b2294d
+  m_Effects:
+  - {fileID: 244505355133414244}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!243 &243805734888483556
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: SAMI
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 987e3f1d00e236a429579a1b82c123fe
+  m_Children: []
+  m_Volume: f33a7fb2b4ae2cb4e8b7d336d9e36f81
+  m_Pitch: 29d359c9e14f15d478c6dd90f45266fc
+  m_Effects:
+  - {fileID: 244166626424722762}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!244 &244166626424722762
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_EffectID: 01ccee6f64497404a8252abc8355f27b
+  m_EffectName: Attenuation
+  m_MixLevel: eab5ff9fcba3b4942abe26264fa6c3c3
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!244 &244505355133414244
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_EffectID: d334ba96a1551254eabb2d614ca0277b
+  m_EffectName: Attenuation
+  m_MixLevel: a42c2e4bdd91b5241a94020eb9e90f80
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!245 &245881998577483394
+AudioMixerSnapshotController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: CityLand
+  m_AudioMixer: {fileID: 24100000}
+  m_SnapshotID: 7692417ae12a2ba459cdcb7108603cab
+  m_FloatValues: {}
+  m_TransitionOverrides: {}
