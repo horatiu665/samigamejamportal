@@ -48,6 +48,21 @@ public class PortalShrinkTimer : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    private ParticleSystem _funky;
+    public ParticleSystem funky
+    {
+        get
+        {
+            if (_funky == null)
+            {
+                _funky = GetComponentsInChildren<ParticleSystem>().First(n => n.name.Contains("funky"));
+            }
+            return _funky;
+        }
+    }
+
+
     [Header("Params")]
     public bool shrinkAfterFirstPassthrough = true;
 
@@ -74,9 +89,11 @@ public class PortalShrinkTimer : MonoBehaviour
     public float lastBitDuration = 0.2f;
     public AnimationCurve lastBitCurve = new AnimationCurve() { keys = new Keyframe[] { new Keyframe(0, 0, 0, 0), new Keyframe(1, 1, 0, 0) } };
 
+    Vector3 initPos;
 
     private void OnEnable()
     {
+        initPos = transform.position;
         initScale = whatToScale.transform.localScale;
         Portal.OnSwitchedDimensions += Portal_OnSwitchedDimensions;
     }
@@ -119,7 +136,7 @@ public class PortalShrinkTimer : MonoBehaviour
         // if the target speed is increased, accelerate with one speed (Faster). if target speed is reduced (zero), decelerate
         curShrinkSpeed = Mathf.MoveTowards(curShrinkSpeed, targetSpeed, targetSpeed > curShrinkSpeed ? shrinkAcceleration : shrinkDeceleration);
         curShrinkSpeed = Mathf.Clamp(curShrinkSpeed, 0, 1f);
-        
+
         // last bit happens only when u look at it
         if (curShrinkSpeed > 0)
         {
@@ -140,6 +157,12 @@ public class PortalShrinkTimer : MonoBehaviour
         {
             var ls = new Vector3(lastInitS.x * lastBitCurve.Evaluate(t), lastInitS.y, lastInitS.z);
             whatToScale.transform.localScale = ls;
+            if (t == 1)
+            {
+                transform.position = Vector3.one * 1000000;
+                funky.transform.position = initPos;
+                funky.Play();
+            }
         }));
 
     }
@@ -157,6 +180,7 @@ public class PortalShrinkTimer : MonoBehaviour
     {
         startedShrinking = false;
         whatToScale.transform.localScale = initScale;
+        transform.position = initPos;
     }
 
     /// <summary>
