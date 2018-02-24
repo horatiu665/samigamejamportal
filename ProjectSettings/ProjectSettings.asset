@@ -11,8 +11,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
-  productName: VRMP3
+  companyName: SamiGameJammers
+  productName: Portal3
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -266,10 +266,10 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 0}
-      m_Width: 1
-      m_Height: 1
-      m_Kind: 40946
+      m_Icon: {fileID: 2800000, guid: c2e02bb2b98d270468265be2e24ae186, type: 3}
+      m_Width: 128
+      m_Height: 128
+      m_Kind: 0
   m_BuildTargetBatching:
   - m_BuildTarget: Standalone
     m_StaticBatching: 1

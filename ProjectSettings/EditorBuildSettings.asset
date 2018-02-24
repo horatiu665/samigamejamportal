@@ -5,9 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
-    path: Assets/Scenes/cool cuvbes.unity
+  - enabled: 0
+    path: Assets/Scenes/test cubes.unity
     guid: 6aebfd3b98c93d74980582e33e30cbfc
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Templates/Client Only.unity
-    guid: 00000000000000000000000000000000
+    guid: b11345c6345ff5249897b956e9716437
+  - enabled: 1
+    path: Assets/Scenes/MainJamScene2.unity
+    guid: d6e8c77d5a50b7645b4acb45b9dc3895
