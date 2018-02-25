@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class PortalShrinkTimer : MonoBehaviour
@@ -91,6 +92,10 @@ public class PortalShrinkTimer : MonoBehaviour
 
     Vector3 initPos;
 
+    [Header("Restart")]
+    public float restartDelay = 5f;
+    public float fadeDelayShit = 2f;
+
     private void OnEnable()
     {
         initPos = transform.position;
@@ -158,6 +163,11 @@ public class PortalShrinkTimer : MonoBehaviour
     {
         startedShrinking = false;
         var lastInitS = whatToScale.transform.localScale;
+
+        AmbienceDesigner.Instance.Next();
+        AmbienceDesigner.Instance.Next();
+        AmbienceDesigner.Instance.Next();
+
         StartCoroutine(pTween.To(lastBitDuration, t =>
         {
             var ls = new Vector3(lastInitS.x * lastBitCurve.Evaluate(t), lastInitS.y, lastInitS.z);
@@ -167,9 +177,28 @@ public class PortalShrinkTimer : MonoBehaviour
                 transform.position = Vector3.one * 1000000;
                 funky.transform.position = initPos;
                 funky.Play();
+                StartCoroutine(pTween.Wait(restartDelay, () =>
+                {
+                    RestartLevel();
+                }));
+
+                AmbienceDesigner.Instance.Next();
+                AmbienceDesigner.Instance.Next();
+                AmbienceDesigner.Instance.Next();
+
             }
+
         }));
 
+    }
+
+    private void RestartLevel()
+    {
+        FadeScreen.Instance.Fade(Color.black, fadeDelayShit);
+        StartCoroutine(pTween.Wait(fadeDelayShit, () =>
+        {
+            SceneManager.LoadSceneAsync(0);
+        }));
     }
 
     private void Shrink()
