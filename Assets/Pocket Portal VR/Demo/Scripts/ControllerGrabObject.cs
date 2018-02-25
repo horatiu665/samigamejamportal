@@ -49,12 +49,12 @@ public class ControllerGrabObject : MonoBehaviour
 
 	private void SetCollidingObject(Collider col)
 	{
-		if (collidingObject || !col.GetComponent<Rigidbody>())
+		if (collidingObject || col.attachedRigidbody == null)
 		{
 			return;
 		}
 
-		collidingObject = col.gameObject;
+		collidingObject = col.attachedRigidbody.gameObject;
 	}
 
 	void Update() {
